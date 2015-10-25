@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
+module.exports = function(app) {
   var items = [{
     name: 'Iceream'
   },
@@ -13,8 +13,9 @@ var router = express.Router();
     name: 'Snarks'
 }];
 
-router.get('/items', function(req,res) {
+app.route('/api/items')
+.get(function(req,res) {
     res.send(items)
   })
 
-module.exports = router;
+}
