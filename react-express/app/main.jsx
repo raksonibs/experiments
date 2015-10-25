@@ -5,16 +5,17 @@ console.log("hello world");
 var GroceryItemList = require('./components/GroceryItemList.jsx');
 // app refers to global scope
 
-var initial =[{
-  name: 'Iceream'
-},
-{
-  name: 'Apple',
-  purchased: true
-},
-{
-  name: 'Snarks'
-}];
+var groceryItemStore = require('./stores/GroceryItemStore.jsx');
 
+var initial = groceryItemStore.getItems();
 
-React.render(<GroceryItemList items={initial}/>, app)
+function render() {
+  React.render(<GroceryItemList items={initial}/>, app)
+}
+
+groceryItemStore.onChange(function(items) {
+  initial= items;
+  render()
+})
+
+render()

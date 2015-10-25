@@ -6,7 +6,7 @@ module.exports = {
 
   register: function(cb) {
     var id = guid.raw();
-    listeners[id] = callback;
+    listeners[id] = cb;
     return id;
   },
   dispatch: function(payload) {
