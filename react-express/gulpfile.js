@@ -9,8 +9,8 @@ gulp.task('live-server', function() {
   var server = new LiveServer('server/main.js');
   server.start();
 })
-
-gulp.task('bundle', function() {
+// gulp dependent on copy which takes files elsewhere
+gulp.task('bundle', ['copy'], function() {
   return browserify({
     entries: 'app/main.jsx',
     debug: true,
@@ -20,6 +20,11 @@ gulp.task('bundle', function() {
   .bundle()
   .pipe(source('app.js'))
   .pipe(gulp.dest('./.tmp'))
+})
+
+gulp.task('copy', function() {
+  gulp.src(["app/*.css"])
+  .pipe(gulp.dest('./.tmp'));
 })
 
 gulp.task('serve', ['bundle', 'live-server'], function() {
