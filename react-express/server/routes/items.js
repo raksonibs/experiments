@@ -15,6 +15,7 @@ module.exports = function(app) {
 
 app.route('/api/items')
 .get(function(req,res) {
+    console.log('using this route')
     res.send(items)
   })
 
