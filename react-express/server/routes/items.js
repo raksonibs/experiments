@@ -18,5 +18,17 @@ app.route('/api/items')
     console.log('using this route')
     res.send(items)
   })
+.post(function(req, res) {
+  var gitem = new GroceryItem({
+    name: req.body.name,
+    purchased: false
+  })
+
+  gitem.save(function(err) {
+    if (err) return next(err)
+
+    res.json(gitem)
+  })
+})
 
 }

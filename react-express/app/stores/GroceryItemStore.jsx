@@ -34,8 +34,10 @@ function GroceryItemStore() {
   }
 
   function addGroceryItem(item) {
-    items.push(item)
-    triggerListeners()
+    helper.post('api/items', task).then {      
+      items.push(item)
+      triggerListeners()
+    }
   }
 
   function setGroceryItemBought(item, isBought) {
