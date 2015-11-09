@@ -26,4 +26,25 @@ app.route('/api/items')
   })
 })
 
+app.route('/api/items/:id')
+  .delete(function(req, res) {
+    GroceryItem.findOne({
+      _id: req.params.id
+    }).remove(function(x) {
+      
+    });
+  })
+  .patch(function(req, res) {
+    GroceryItem.findOne({
+      _id: req.body._id
+    }, function(error, item) {
+      for (var key in req.body) {
+        item[key] = req.body[key]
+      }
+
+      item.save()
+      res.status(200).send()
+    })
+  })
+
 }

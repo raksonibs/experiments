@@ -31,12 +31,18 @@ function GroceryItemStore() {
 
     items.splice(index, 1);
     triggerListeners();
+
+    // confirmation before the server 
+
+    helper.del("api/items/" + item._id);
+
+
   }
 
   function addGroceryItem(item) {
     items.push(item)
     triggerListeners()
-    
+
     helper.post('api/items', item)
       .then(function(data) {
       console.log(data)      
@@ -51,6 +57,8 @@ function GroceryItemStore() {
     console.log(item.purchased)
 
     triggerListeners()
+
+    helper.patch("api/items/", item._id, item);
   }
 
   function triggerListeners() {
