@@ -2,6 +2,7 @@ var express = require('express');
 var ApiController = require('./routes/items.js');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var GroceryItem = require('./models/GroceryItem.js');
 
 // could set up database file and require it, and then can be a seed fiel
 if (process.env.HOME === '/Users/oskarniburski') {
