@@ -34,10 +34,12 @@ function GroceryItemStore() {
   }
 
   function addGroceryItem(item) {
-    helper.post('api/items', task).then {      
+    helper.post('api/items', item)
+      .then(function(data) {
+      console.log(data)      
       items.push(item)
       triggerListeners()
-    }
+    })
   }
 
   function setGroceryItemBought(item, isBought) {

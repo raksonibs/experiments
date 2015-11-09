@@ -1,6 +1,7 @@
 var express = require('express');
 var ApiController = require('./routes/items.js');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 if (process.env.HOME === '/Users/oskarniburski') {
   console.log("connecting to local db");
@@ -19,7 +20,9 @@ var router = express.Router();
 
 var app = new express();
 
-var parser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 require('./routes/items.js')(app);
 
 app.get('/', function(req, res) {
@@ -34,10 +37,6 @@ app._router.stack.forEach(function(r){
     console.log(r.route.path)
   }
 })
-
-// function call which grabs the app
-app.use(parser.json());
-app.use(parser.urlencoded({extended: false}));
 
 
 
