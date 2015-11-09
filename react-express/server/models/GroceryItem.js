@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 
-var taskSchema = new mongoose.Schema({
+var groceryItemSchema = new mongoose.Schema({
   name: String,
-  purchased: String
+  purchased: String,
+  id: String
 });
 
-module.exports = mongoose.model('GroceryItem', taskSchema);
+module.exports = mongoose.model('GroceryItem', groceryItemSchema, "groceryItems");

@@ -22,7 +22,7 @@ app.route('/api/items')
   gitem.save(function(err) {
     if (err) return next(err)
 
-    res.send(gitem)
+    res.status(300).send()
   })
 })
 

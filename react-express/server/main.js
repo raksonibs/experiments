@@ -3,10 +3,21 @@ var ApiController = require('./routes/items.js');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
+// could set up database file and require it, and then can be a seed fiel
 if (process.env.HOME === '/Users/oskarniburski') {
   console.log("connecting to local db");
   var db = "mongodb://localhost/myapp";
-  mongoose.connect(db);
+  mongoose.connect(db, function() {
+    mongoose.connection.db.dropDatabase();
+
+    var items = [{
+      name: "Icescream"
+    }, { name: "Candy", purchased: true}]
+  
+    items.forEach(function(item) {
+      new GroceryItem(item).save()
+    })
+  });
 } else {
   console.log("connecting to prod db");
   mongoose.connect(secrets.db);
