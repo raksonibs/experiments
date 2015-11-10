@@ -3,6 +3,10 @@ var ApiController = require('./routes/items.js');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var GroceryItem = require('./models/GroceryItem.js');
+var React = require('react/addons');
+
+// updates to use es6
+require('babel-core/register');
 
 // could set up database file and require it, and then can be a seed fiel
 if (process.env.HOME === '/Users/oskarniburski') {
@@ -38,7 +42,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./routes/items.js')(app);
 
 app.get('/', function(req, res) {
-  res.render('./../app/index.ejs', {})
+  // res.render('./../app/index.ejs', {})
+  // virtual instance and serialize it
+  var application = React.createFactory(require('./../app/components/GroceryItemList.jsx'));
+  GroceryItem.find(function(error, items) {
+    // pass application configuration objet
+    // renderToString to item
+    var generated = React.renderToString(application({items: items}))
+    // generate string of react components and render it to the output
+    // need babel
+    res.render('./../app/index.ejs', {reactOutput: generated})
+  })
 })
 
 app.use(express.static(__dirname + "/../.tmp"))
