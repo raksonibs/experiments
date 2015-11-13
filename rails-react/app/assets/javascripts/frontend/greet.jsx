@@ -1,4 +1,4 @@
-export default class Greet extends React.Component {
+class Greet extends React.Component {
   render() {
     return <h2>Yo from greet</h2>
   }

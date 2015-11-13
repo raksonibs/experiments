@@ -1,4 +1,4 @@
-import Greet from './greet';
+// import Greet from './greet';
 
 class Main extends React.Component {
   render() {
