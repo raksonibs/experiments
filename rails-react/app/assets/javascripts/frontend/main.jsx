@@ -2,15 +2,17 @@
 
 class Main extends React.Component {
   render() {
-    return ( <Greet /> )
+    return ( 
+      <div className="container"><TweetBox /></div>
+    )
   }
 }
 
-let documentReady = () => {
-  ReactDOM.render(
-    <Main />,
-    document.getElementById('react')
-    )
-}
+// let documentReady = () => {
+//   ReactDOM.render(
+//     <Main />,
+//     document.getElementById('react')
+//     )
+// }
 
-$(documentReady)
+// $(documentReady)
