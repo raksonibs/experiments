@@ -59,22 +59,35 @@
 	
 	// import Greet from './greet';
 	
+	var mockTweets = [{ name: "Blah", body: 'cat' }, { name: "Cat", body: 'dog' }];
+	
 	var Main = (function (_React$Component) {
 	  _inherits(Main, _React$Component);
 	
-	  function Main() {
+	  function Main(props) {
 	    _classCallCheck(this, Main);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Main).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props));
+	
+	    _this.state = { tweetsList: mockTweets };
+	    return _this;
 	  }
 	
 	  _createClass(Main, [{
+	    key: "addTweet",
+	    value: function addTweet(tweetToAdd) {
+	      var newTweetsList = this.state.tweetsList;
+	      newTweetsList.unshift({ body: tweetToAdd, name: 'Guest' });
+	      this.setState({ tweetsList: newTweetsList });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      return React.createElement(
 	        "div",
 	        { className: "container" },
-	        React.createElement(TweetBox, null)
+	        React.createElement(TweetBox, { sendTweet: this.addTweet.bind(this) }),
+	        React.createElement(TweetList, { tweets: mockTweets })
 	      );
 	    }
 	  }]);
