@@ -1,16 +1,19 @@
-
+import { EventEmitter } from 'events';
 
 let _tweets =[]
 
-class TweetEventEmitter extends AppEventEmitter {
+class AppEventEmitter extends EventEmitter {
 
+  emitChange() {
+    this.emit("CHANGE")
+  }
 
-  getAll() {
-    return _tweets.map(tweet => {
-      tweet.formattedDate = moment(tweet.created_at).fromNow()
-      return tweet
-    })
-    return _tweets;
+  addChangeListener(callback) {
+    this.on("CHANGE", callback)
+  }
+
+  removeChangeListener() {
+    this.removeListener("CHANGE", callback)
   }
 
 }

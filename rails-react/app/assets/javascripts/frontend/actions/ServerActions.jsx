@@ -6,6 +6,18 @@
       rawTeets: rawTweets
       actionType: 'RECEIVED_TWEETS'
     })
+  },
+  receivedUsers(rawUsers) {
+    Flux.Dispatcher().dispatch({
+      rawTeets: rawUsers
+      actionType: 'RECEIVED_Users'
+    })
+  },
+  receivedOneFollower(rawFollower) {
+    Flux.Dispatcher().dispatch({
+      rawFollower: rawFollower,
+      actionType: 'RECEIVED_FOLLOWER'
+    })
   }
 
   receivedOneTweet(rawTweet) {
