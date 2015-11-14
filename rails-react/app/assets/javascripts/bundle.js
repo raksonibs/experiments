@@ -45,17 +45,29 @@
 /*!**************************************************!*\
   !*** ./app/assets/javascripts/frontend/main.jsx ***!
   \**************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	_actions2.default.getAllTweets();
+	
+	var getAppState = function getAppState() {
+	  return { tweetsList: TweetStore.getAll() };
+	};
 	
 	var Main = (function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -65,41 +77,28 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props));
 	
-	    _this.state = { tweetsList: [] };
+	    _this.state = getAppState();
+	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
 	
-	  // formattedTweets(tweetsList) {
-	  //   let formattedList = tweetsList.map(tweet => {
-	  //     tweet.formattedDate = moment(tweet.created_at).fromNow()
-	  //     return tweet
-	  //   })
-	  //   console.log(formattedList)
-	  //   return formattedList
-	  // }
-	
 	  _createClass(Main, [{
 	    key: "addTweet",
-	    value: function addTweet(tweetToAdd) {
-	      // $.post("/tweets", { body: tweetToAdd })
-	      // .success( savedTweet => {
-	      //   let newTweetsList = this.state.tweetsList;
-	      //   newTweetsList.unshift(savedTweet)
-	      //   this.setState({tweetsList: this.formattedTweets(newTweetsList)})
-	      // })
-	      // .error(error => console.log(error))
-	    }
+	    value: function addTweet(tweetToAdd) {}
 	  }, {
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
-	      //  $.get("/tweets")
-	      //  .success(data => {
-	      //    console.log(this.state)
-	      //    console
-	      //   this.setState({tweetsList: this.formattedTweets(data)})
-	      //   console.log(this.state)
-	      // })
-	      //  .error(error => console.log(error))
+	      TweetStore.addChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: "componentWillUnmount",
+	    value: function componentWillUnmount() {
+	      TweetStore.removeChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: "_onChange",
+	    value: function _onChange() {
+	      this.setState(getAppState());
 	    }
 	  }, {
 	    key: "render",
