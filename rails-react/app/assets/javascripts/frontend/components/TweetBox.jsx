@@ -9,7 +9,7 @@ sendTweet(event) {
       <div className="input-field">
         <form onSubmit={this.sendTweet.bind(this)}>
           <textarea ref="tweetTextArea" className="materialize-textarea"/>
-          <button className="btn right">Tweet</button>
+          <button className="btn right">Tweettt</button>
         </form>
       </div>
     )

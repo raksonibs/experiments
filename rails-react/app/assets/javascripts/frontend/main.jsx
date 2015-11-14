@@ -1,35 +1,42 @@
-// import Greet from './greet';
-
-let mockTweets = [
-  { name: "Blah", body: 'cat'},
-  { name: "Cat", body: 'dog'}
-]
-
 class Main extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { tweetsList: mockTweets }
+    this.state = { tweetsList: [] }
   }
+
   addTweet(tweetToAdd) {
-    let newTweetsList = this.state.tweetsList;
-    newTweetsList.unshift({body: tweetToAdd, name: 'Guest'})
-    this.setState({ tweetsList: newTweetsList})
+    $.post("/tweets", { body: tweetToAdd })
+    .success( savedTweet => {
+      let newTweetsList = this.state.tweetsList;
+      newTweetsList.unshift(savedTweet)
+      this.setState({ tweetsList: newTweetsList})
+      tweetsList = newTweetsList
+    })
+    .error(error => console.log(error))
+  }
+
+  componentDidMount() {
+    $.get("/tweets")
+    .success(data => {
+     this.setState({ tweetsList: data })
+   })
+    .error(error => console.log(error))
   }
 
   render() {
     return ( 
       <div className="container"><TweetBox sendTweet={this.addTweet.bind(this)}/>
-      <TweetList tweets={mockTweets}/>
+      <TweetList tweets={this.state.tweetsList}/>
       </div>
     )
   }
 }
 
-// let documentReady = () => {
-//   ReactDOM.render(
-//     <Main />,
-//     document.getElementById('react')
-//     )
-// }
+let documentReady = () => {
+  ReactDOM.render(
+    <Main />,
+    document.getElementById('react')
+    )
+}
 
-// $(documentReady)
+$(documentReady)
