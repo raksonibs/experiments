@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   # authenticates_with_sorcery!
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  def display_name
+    first_name.present? ? "#{first_name} #{last_name}" : email
+  end
 end
