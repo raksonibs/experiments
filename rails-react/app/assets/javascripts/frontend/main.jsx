@@ -1,42 +1,30 @@
 import TweetActions from "../actions";
+import Index from "../components/Index";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Follow from "../components/Follow"
 
-TweetActions.getAllTweets();
+import { Router, Route, Link } from 'react-router'
+import { history } from 'react-router/lib/HashHistory'
 
-let getAppState = () => {
-  return { tweetsList: TweetStore.getAll() }
-}
-
-class Main extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = getAppState()
-    this._onChange = this._onChange.bind(this)
-  }
-
-  componentDidMount() {
-    TweetStore.addChangeListener(this._onChange)
-  }
-
-  componentWillUnmount() {
-    TweetStore.removeChangeListener(this._onChange)
-  }
-
-  _onChange() {
-    this.setState(getAppState())
-  }
-
+class App extends React.Component {
   render() {
-    return ( 
-      <div className="container"><TweetBox/>
-      <TweetList tweets={this.state.tweetsList}/>
+    return {
+      <div>
+        {this.props.children}
       </div>
-    )
+    }
   }
 }
-
+// react routing takes over!
 let documentReady = () => {
   ReactDOM.render(
-    <Main />,
+    <Router history={history}?
+      <Route compontent={App}/>
+        <Route path="/" component={Index} />
+        <Route path="follow" component={Follow} />
+      </Route>
+    </Router>,
     document.getElementById('react')
     )
 }
