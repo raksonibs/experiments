@@ -2,9 +2,8 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", github: "rails/rails"
-gem "arel", github: 'rails/arel'
-gem 'rack', github: 'rack/rack'
+gem "rails"
+
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Uglifier as compressor for JavaScript assets
@@ -48,3 +47,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'sprockets', '>=3.0.0.beta'
 gem 'sprockets-es6'
+
+gem 'devise'
+
+# gem "sorcery"

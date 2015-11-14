@@ -13,6 +13,17 @@
 
   <body>
 
+  <% if user_signed_in? %>
+  Signed in
+  <% else %>
+  Not signed in
+  <% end %>
+
+    <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+
+
     <%= yield %>
 
   </body>
