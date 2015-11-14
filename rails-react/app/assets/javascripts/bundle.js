@@ -69,42 +69,37 @@
 	    return _this;
 	  }
 	
+	  // formattedTweets(tweetsList) {
+	  //   let formattedList = tweetsList.map(tweet => {
+	  //     tweet.formattedDate = moment(tweet.created_at).fromNow()
+	  //     return tweet
+	  //   })
+	  //   console.log(formattedList)
+	  //   return formattedList
+	  // }
+	
 	  _createClass(Main, [{
-	    key: "formattedTweets",
-	    value: function formattedTweets(tweetsList) {
-	      var formattedList = tweetsList.map(function (tweet) {
-	        tweet.formattedDate = moment(tweet.created_at).fromNow();
-	        return tweet;
-	      });
-	      console.log(formattedList);
-	      return formattedList;
-	    }
-	  }, {
 	    key: "addTweet",
 	    value: function addTweet(tweetToAdd) {
-	      var _this2 = this;
-	
-	      $.post("/tweets", { body: tweetToAdd }).success(function (savedTweet) {
-	        var newTweetsList = _this2.state.tweetsList;
-	        newTweetsList.unshift(savedTweet);
-	        _this2.setState({ tweetsList: _this2.formattedTweets(newTweetsList) });
-	      }).error(function (error) {
-	        return console.log(error);
-	      });
+	      // $.post("/tweets", { body: tweetToAdd })
+	      // .success( savedTweet => {
+	      //   let newTweetsList = this.state.tweetsList;
+	      //   newTweetsList.unshift(savedTweet)
+	      //   this.setState({tweetsList: this.formattedTweets(newTweetsList)})
+	      // })
+	      // .error(error => console.log(error))
 	    }
 	  }, {
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
-	      var _this3 = this;
-	
-	      $.get("/tweets").success(function (data) {
-	        console.log(_this3.state);
-	        console;
-	        _this3.setState({ tweetsList: _this3.formattedTweets(data) });
-	        console.log(_this3.state);
-	      }).error(function (error) {
-	        return console.log(error);
-	      });
+	      //  $.get("/tweets")
+	      //  .success(data => {
+	      //    console.log(this.state)
+	      //    console
+	      //   this.setState({tweetsList: this.formattedTweets(data)})
+	      //   console.log(this.state)
+	      // })
+	      //  .error(error => console.log(error))
 	    }
 	  }, {
 	    key: "render",

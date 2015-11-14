@@ -1,0 +1,5 @@
+{
+  getAllTweets() {
+    API.getAllTweets();
+  }
+}
