@@ -83,9 +83,6 @@
 	  }
 	
 	  _createClass(Main, [{
-	    key: "addTweet",
-	    value: function addTweet(tweetToAdd) {}
-	  }, {
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
 	      TweetStore.addChangeListener(this._onChange);
@@ -106,7 +103,7 @@
 	      return React.createElement(
 	        "div",
 	        { className: "container" },
-	        React.createElement(TweetBox, { sendTweet: this.addTweet.bind(this) }),
+	        React.createElement(TweetBox, null),
 	        React.createElement(TweetList, { tweets: this.state.tweetsList })
 	      );
 	    }

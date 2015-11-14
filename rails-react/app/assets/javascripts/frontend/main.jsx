@@ -13,10 +13,6 @@ class Main extends React.Component {
     this._onChange = this._onChange.bind(this)
   }
 
-  addTweet(tweetToAdd) {
-   
-  }
-
   componentDidMount() {
     TweetStore.addChangeListener(this._onChange)
   }
@@ -31,7 +27,7 @@ class Main extends React.Component {
 
   render() {
     return ( 
-      <div className="container"><TweetBox sendTweet={this.addTweet.bind(this)}/>
+      <div className="container"><TweetBox/>
       <TweetList tweets={this.state.tweetsList}/>
       </div>
     )
