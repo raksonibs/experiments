@@ -70,6 +70,16 @@
 	  }
 	
 	  _createClass(Main, [{
+	    key: "formattedTweets",
+	    value: function formattedTweets(tweetsList) {
+	      var formattedList = tweetsList.map(function (tweet) {
+	        tweet.formattedDate = moment(tweet.created_at).fromNow();
+	        return tweet;
+	      });
+	      console.log(formattedList);
+	      return formattedList;
+	    }
+	  }, {
 	    key: "addTweet",
 	    value: function addTweet(tweetToAdd) {
 	      var _this2 = this;
@@ -77,8 +87,7 @@
 	      $.post("/tweets", { body: tweetToAdd }).success(function (savedTweet) {
 	        var newTweetsList = _this2.state.tweetsList;
 	        newTweetsList.unshift(savedTweet);
-	        _this2.setState({ tweetsList: newTweetsList });
-	        tweetsList = newTweetsList;
+	        _this2.setState({ tweetsList: _this2.formattedTweets(newTweetsList) });
 	      }).error(function (error) {
 	        return console.log(error);
 	      });
@@ -89,7 +98,10 @@
 	      var _this3 = this;
 	
 	      $.get("/tweets").success(function (data) {
-	        _this3.setState({ tweetsList: data });
+	        console.log(_this3.state);
+	        console;
+	        _this3.setState({ tweetsList: _this3.formattedTweets(data) });
+	        console.log(_this3.state);
 	      }).error(function (error) {
 	        return console.log(error);
 	      });
