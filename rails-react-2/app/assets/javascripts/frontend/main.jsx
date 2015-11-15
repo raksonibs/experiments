@@ -1,18 +1,9 @@
-class Main extends React.Component {
-   render() {
-    return ( 
-      <div className="container">
-        <h1> Test </h1>
-      </div>
-    )
-   }
- }
-
-let documentReady = () => {
-  ReactDOM.render(
-    <Main />,
-    document.getElementById('react')
-    )
+import React from 'react';
+ 
+class Hello extends React.Component {
+  render() {
+    return <h1>Hello</h1>
+  }
 }
 
-$(documentReady)
+React.render(<Hello />, document.getElementById('hello'));
