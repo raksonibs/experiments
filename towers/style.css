@@ -7,7 +7,7 @@ body {
 
 .tower {
   display: inline-block;
-  width: 200px;
+  width: 250px;
   height: 200px;
   border: 1px dashed black;
   text-align: center;
@@ -23,7 +23,7 @@ body {
 }
 
 .ring {
-  width: 150px;
+  width: 200px;
   height: 25px;
   border: 1px solid black;
   z-index: 100;
@@ -38,8 +38,10 @@ body {
 
 .ring-2 {
   background: blue;
+  width: 150px;
 }
 
 .ring-3 {
   background: green;
+  width: 100px;
 }
