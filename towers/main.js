@@ -110,3 +110,17 @@ $(function() {
       return false;
     });
   });
+
+
+$(function() {
+  var $tower1 = $(".tower-1"),
+      $tower2 = $(".tower-2"),
+      $tower3 = $(".tower-3")
+      $towers = $('.tower')
+
+  $('.ring', $towers).draggable({
+    revert: "invalid",
+    helper: 'clone',
+    cursor: 'move'
+  })
+}())
