@@ -2,10 +2,65 @@
 <html>
 <head>
   <title>Towers Of Hanoi</title>
+  <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <script src="jquery.min.js" type="text/javascript" charset="utf-8" async defer></script>
+  <script src="jquery-ui.min.js" type="text/javascript" charset="utf-8" async defer></script> -->
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="main.js" type="text/javascript" charset="utf-8" async defer></script>
+  <style>
+  #gallery { float: left; width: 65%; min-height: 12em; }
+  .gallery.custom-state-active { background: #eee; }
+  .gallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+  .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+  .gallery li a { float: right; }
+  .gallery li a.ui-icon-zoomin { float: left; }
+  .gallery li img { width: 100%; cursor: move; }
+ 
+  #trash { float: right; width: 32%; min-height: 18em; padding: 1%; }
+  #trash h4 { line-height: 16px; margin: 0 0 0.4em; }
+  #trash h4 .ui-icon { float: left; }
+  #trash .gallery h5 { display: none; }
+  </style>
+ 
 </head>
 <body>
+
+<div class="ui-widget ui-helper-clearfix">
+ 
+<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+  <li class="ui-widget-content ui-corner-tr">
+    <h5 class="ui-widget-header">High Tatras</h5>
+    <img src="images/high_tatras_min.jpg" alt="The peaks of High Tatras" width="96" height="72">
+    <a href="images/high_tatras.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+  </li>
+  <li class="ui-widget-content ui-corner-tr">
+    <h5 class="ui-widget-header">High Tatras 2</h5>
+    <img src="images/high_tatras2_min.jpg" alt="The chalet at the Green mountain lake" width="96" height="72">
+    <a href="images/high_tatras2.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+  </li>
+  <li class="ui-widget-content ui-corner-tr">
+    <h5 class="ui-widget-header">High Tatras 3</h5>
+    <img src="images/high_tatras3_min.jpg" alt="Planning the ascent" width="96" height="72">
+    <a href="images/high_tatras3.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+  </li>
+  <li class="ui-widget-content ui-corner-tr">
+    <h5 class="ui-widget-header">High Tatras 4</h5>
+    <img src="images/high_tatras4_min.jpg" alt="On top of Kozi kopka" width="96" height="72">
+    <a href="images/high_tatras4.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+  </li>
+</ul>
+ 
+<div id="trash" class="ui-widget-content ui-state-default">
+  <h4 class="ui-widget-header"><span class="ui-icon ui-icon-trash">Trash</span> Trash</h4>
+</div>
+ 
+</div>
 
 <div id="box"></div>
 <p>Solve the following ancient Puzzle. Assemble the rings so that they are largest to smallest on top of one another. Know that no larger piece can go on the smaller piece. Those are the rules. May God(s) have mercy on your soul.</p>
