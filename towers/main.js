@@ -123,4 +123,28 @@ $(function() {
     helper: 'clone',
     cursor: 'move'
   })
+
+  $tower1.droppable({
+    accept: '.tower > .ring',
+    activeClass: 'ui-state-highlight',
+    drop: function(event, ui) {
+      console.log(ui)
+    }
+  })
+
+  $tower2.droppable({
+    accept: '.tower > .ring',
+    activeClass: 'ui-state-highlight',
+    drop: function(event, ui) {
+      console.log(ui)
+    }
+  })
+
+  $tower3.droppable({
+    accept: '.tower > .ring',
+    activeClass: 'ui-state-highlight',
+    drop: function(event, ui) {
+      console.log(ui)
+    }
+  })
 }())
