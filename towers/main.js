@@ -1,5 +1,5 @@
 function checkCompleted($tower3) {
-  finished = $($tower3.children()[0]).data('ring-number') === 3 && $tower3.children().length === 3
+  finished = $($tower3.children()[0]).data('ring-number') === 4 && $tower3.children().length === 4
   return finished
 }
 
@@ -18,9 +18,9 @@ function bottomRing($tower, $ring) {
 
 $(function() {
   var $tower1 = $(".tower-1"),
-      $tower2 = $(".tower-2"),
-      $tower3 = $(".tower-3")
-      $towers = $('.tower')
+  $tower2 = $(".tower-2"),
+  $tower3 = $(".tower-3")
+  $towers = $('.tower')
 
   $('.ring', $towers).draggable({
     revert: "invalid",
@@ -59,30 +59,62 @@ $(function() {
       var okayOrder = bottomRing($('.tower-1'), $item)
       if (okayOrder) {
         console.log('moved to tower 1')
-          $('.tower-1').prepend($item)
+        $('.tower-1').prepend($item)
           // $('.tower-1 .ring').css('top', '150px');
-      }
-      $item.fadeIn()        
-    } else if (ui.position.left > $('.tower-3').position().left) {
+        } else {
+          $('.note-text').text("That isn't allowed!")
+          $('.flag.note.notice').slideDown();
+          setTimeout(function() {
+            $('.flag.note.notice').slideUp();
+          }, 5000);
+        }
+        $item.fadeIn()        
+      } else if (ui.position.left > $('.tower-3').position().left) {
        var okayOrder = bottomRing($('.tower-3'), $item)
-      if (okayOrder) {
+       
+       if (okayOrder) {
         console.log("moved to 3")
         $('.tower-3').prepend($item)     
         var towerComplete = checkCompleted($('.tower-3'))
         if (towerComplete) {
-          $('body').html('<p>You did it </p>')
+
+          var audioMoney = new Audio('music.mp3')
+          audioMoney.play();
+          $('.conf-cont').css('z-index', '10000')
+          $('.container-notifications').css('z-index', '10000')
+          $('.conf-cont').fadeIn().next().delay(20000).fadeOut();
+          $('.success-text').text("You Did it!")
+
+          $('.flag.note.success').slideDown();
+
+          setTimeout(function() {
+            $('.flag.note.success').slideUp();
+            $('.conf-cont').fadeOut();
+            audioMoney.pause();
+          }, 20000);
         }
       } else {
+        $('.note-text').text("That isn't allowed!")
+        $('.flag.note.notice').slideDown();
+        setTimeout(function() {
+          $('.flag.note.notice').slideUp();
+        }, 5000);
         
       }
       $item.fadeIn()
     } else {
-       var okayOrder = bottomRing($('.tower-2'), $item)
-      if (okayOrder) {
-        console.log('movsed to 2')
-        $('.tower-2').prepend($item)
-        }
-        $item.fadeIn()
+     var okayOrder = bottomRing($('.tower-2'), $item)
+     if (okayOrder) {
+      console.log('movsed to 2')
+      $('.tower-2').prepend($item)
+    } else {
+      $('.note-text').text("That isn't allowed!")
+      $('.flag.note.notice').slideDown();
+      setTimeout(function() {
+        $('.flag.note.notice').slideUp();
+      }, 5000);
     }
+    $item.fadeIn()
   }
+}
 }())
