@@ -1,9 +1,7 @@
-// need to check each pole after every move.
-// if any pole has the solution pole 1, pole 2, pole 3, in its tower box, then correct.
-// if not then no solution. 
-// need to have a recursive solver in case she gets stuck
-
-var box = document.getElementById('box')
+function checkCompleted($tower3) {
+  finished = $($tower3.children()[0]).data('ring-number') === 3 && $tower3.children().length === 3
+  return finished
+}
 
 
 function bottomRing($tower, $ring) {
@@ -31,7 +29,7 @@ $(function() {
   })
 
   $tower1.droppable({
-    accept: '.tower > .ring',
+    accept: '.tower > .ring:first-child',
     activeClass: 'ui-state-highlight',
     drop: function(event, ui) {
       moveRing(ui.draggable, ui)
@@ -39,7 +37,7 @@ $(function() {
   })
 
   $tower2.droppable({
-    accept: '.tower > .ring',
+    accept: '.tower > .ring:first-child',
     activeClass: 'ui-state-highlight',
     drop: function(event, ui) {
       moveRing(ui.draggable, ui)
@@ -47,7 +45,7 @@ $(function() {
   })
 
   $tower3.droppable({
-    accept: '.tower > .ring',
+    accept: '.tower > .ring:first-child',
     activeClass: 'ui-state-highlight',
     drop: function(event, ui) {
       moveRing(ui.draggable, ui)
@@ -70,6 +68,10 @@ $(function() {
       if (okayOrder) {
         console.log("moved to 3")
         $('.tower-3').prepend($item)     
+        var towerComplete = checkCompleted($('.tower-3'))
+        if (towerComplete) {
+          $('body').html('<p>You did it </p>')
+        }
       } else {
         
       }
