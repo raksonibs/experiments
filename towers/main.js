@@ -82,8 +82,8 @@ $(function() {
           audioMoney.play();
           $('.conf-cont').css('z-index', '10000')
           $('.container-notifications').css('z-index', '10000')
-          $('.conf-cont').fadeIn().next().delay(20000).fadeOut();
-          $('.success-text').text("You Did it!")
+          $('.conf-cont').fadeIn().next().delay(30000).fadeOut();
+          $('.success-text').text("All secrets are revealed!")
 
           $('.flag.note.success').slideDown();
 
@@ -91,7 +91,15 @@ $(function() {
             $('.flag.note.success').slideUp();
             $('.conf-cont').fadeOut();
             audioMoney.pause();
-          }, 20000);
+          }, 30000);
+            $.ajax({
+              url: "https://api.spark.io/v1/devices/53ff6b066667574852212367/coming_home",
+              type: "POST",
+              dataType: "json",
+              data: {access_token: '4f986a5d4a2bae7b64804a39da2a41ccb72d297e'},
+              success: function() {},
+              error: function() {}
+            })
         }
       } else {
         $('.note-text').text("That isn't allowed!")
