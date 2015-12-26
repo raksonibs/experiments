@@ -1,0 +1,14 @@
+{
+  "messages": {
+    "0": {
+      "message": "Hi",
+      "date": "Wed, 08 Jul 2015",
+      "author": "Kacper"
+    },
+    "1": {
+      "message": "yo",
+      "date": "Thurs, 09 Jul 2015",
+      "author": "Claire"
+    }
+  }
+}
