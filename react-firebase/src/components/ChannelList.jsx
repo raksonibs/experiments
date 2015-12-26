@@ -1,38 +1,38 @@
 import React from 'react';
-import Message from './Message.jsx'
+import Channel from './Channel.jsx'
 import mui from 'material-ui'
 
 var {Card, List} = mui
 
-class MessageList extends React.Component {
+class ChannelList extends React.Component {
   constructor(props) {
     // always first constructor with props can call super class
     super(props);
     this.state = {
-      messages: [
-        'hi',
-        'yo00'
+      channels: [
+        'Dogs',
+        'Cats'
       ]
     }
   }
 
     render() {
-      var messageNodes = this.state.messages.map((message) => {
+      var channelNodes = this.state.channels.map((channel) => {
           return (
-            <Message message={message} />
+            <Channel channel={channel} />
           )
         })
 
         return (
           <Card style={{
-            flexGrow: 2
+            flexGrow: 1
           }}>
             <List>
-              {messageNodes}
+              {channelNodes}
             </List>
           </Card>
         )
     }
   }
 
-export default MessageList;
+export default ChannelList;
