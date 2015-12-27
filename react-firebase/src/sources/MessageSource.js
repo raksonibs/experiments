@@ -11,7 +11,7 @@ let MessageSource = {
         firebaseRef.off();
       }
 
-      firebaseRef = new Firebase('https://react-stack.firebaseio.com/messages/' +
+      firebaseRef = new Firebase('https://react-stack12.firebaseio.com/messages/' +
         state.selectedChannel.key);
 
       return new Promise((resolve, reject) => {
