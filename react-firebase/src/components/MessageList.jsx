@@ -6,7 +6,7 @@ import _ from 'lodash'
 import connectToStores from 'alt/utils/connectToStores'
 import ChatStore from '../stores/ChatStore'
 
-var {Card, List} = mui
+var {Card, List, CircularProgress} = mui
 
 @connectToStores
 class MessageList extends React.Component {
@@ -28,13 +28,15 @@ class MessageList extends React.Component {
     render() {
       let messageNodes = null;
 
-      if (this.props.messages) {
+      if (!this.props.messagesLoading) {
         messageNodes = _.values(this.state.messages).map((message) => {
             return (
               <Message message={message.message} />
             )
           })
         
+      } else {
+        messageNodes = <CircularProgress mode="indeterminate"/>
       }
 
         return (

@@ -9,7 +9,14 @@ import _ from 'lodash'
 @decorate(alt)
 class ChatStore {
   constructor() {
-    this.state = { user: null, messages: null }
+    this.state = { user: null, messages: null, messagesLoading: true}
+  }
+
+  @bind(Actions.messagesLoading)
+  messagesLoading() {
+    this.setState({
+      messagesLoading: true
+    })
   }
 
   @bind(Actions.messagesReceived)
@@ -43,6 +50,25 @@ class ChatStore {
       this.setState({
         channels,
         selectedChannel
+      })
+
+      setTimeout(this.getInstance().getMessages, 100)
+  }
+
+  @bind(Actions.channelOpened)
+  channelOpened(selectedChannel) {
+    _(this.state.channels)
+      .values()
+      .each((channel) => {
+        channel.selected = false
+      })
+      .value()
+
+      selectedChannel.selected = true
+
+      this.setState({
+        selectedChannel,
+        channels: this.state.channels
       })
 
       setTimeout(this.getInstance().getMessages, 100)
