@@ -11,7 +11,18 @@ class ChannelList extends React.Component {
   constructor(props) {
     // always first constructor with props can call super class
     super(props);
-    ChatStore.getChannels()
+  }
+
+  compontDidMount() {
+    this.selectedChannel = this.props.params.channel;
+    ChatStore.getChannels(this.selectedChannel)
+  }
+
+  compontWillReceiveProps(nextProps) {
+    if (this.selectedChannel != nextProps.params.channel) {
+      this.selectedChannel = nextProps.params.channel;
+      ChatStore.getChannels(this.selectedChannel)
+    }
   }
 
   static getStores() {

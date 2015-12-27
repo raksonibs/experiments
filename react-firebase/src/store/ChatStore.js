@@ -4,6 +4,7 @@ import {decorate, bind, datasource} from 'alt/utils/decorators'
 import ChannelSource from "../sources/ChannelSource"
 import MessageSource from "../sources/MessageSource"
 import _ from 'lodash'
+import ChatStore from './ChatStore.jsx'
 
 @datasource(ChannelSource, MessageSource)
 @decorate(alt)
@@ -58,8 +59,7 @@ class ChatStore {
       .keys()
       .each((key, index) => {
         channels[key],key = key 
-        if(index ==0) {
-          channels[key].selected = true
+        if(channels[key].selected) {          
           selectedChannel = channels[key]
         }
       })
@@ -90,6 +90,13 @@ class ChatStore {
       })
 
       setTimeout(this.getInstance().getMessages, 100)
+  }
+
+  static willtransitionTo(transition) {
+    var state = ChatStore.getState()
+    if (!state.user) {
+      transition.redirect('/login')
+    }
   }
   // alt makes sure bind to action
   @bind(Actions.login)

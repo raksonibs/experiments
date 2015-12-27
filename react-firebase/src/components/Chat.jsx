@@ -11,7 +11,9 @@ class Chat etends React.Component {
           maxWidth: '1200',
           width: '100%'
         }}>
-          <ChannelList />
+        // or es7 spread paramaters
+          // <ChannelList channel={this.props.params.channel}/>
+          <ChannelList channel={...this.props}/>
           <MessageList />
           <MessageBox />
         )
