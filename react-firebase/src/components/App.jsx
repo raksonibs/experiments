@@ -1,30 +1,42 @@
 import React from 'react';
+import mui from 'material-ui';
+import {RouteHandler} from 'react-router';
 
-import * as mui from 'material-ui';
-import {RouterHandler} from 'react-router'
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
-
-
-var Colors = mui.Styles.Colors
+var ThemeManager = new mui.Styles.ThemeManager();
+var Colors = mui.Styles.Colors;
 var AppBar = mui.AppBar;
 
 class App extends React.Component {
-  constructor() {
+  constructor(){
     super();
+
+    ThemeManager.setPalette({
+      primary1Color: Colors.blue500,
+      primary2Color: Colors.blue700,
+      primary3Color: Colors.blue100,
+      accent1Color: Colors.pink400
+    });
   }
 
-      // only one root
-  render() {
 
-   
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object
+  }
+
+  getChildContext(){
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
+
+  render(){
+
     return (
       <div>
         <AppBar title="Awesome Chat App" />
-          <RouterHandler />
-        </div>
+        <RouteHandler />
       </div>
-    )
+    );
   }
 }
 

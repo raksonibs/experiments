@@ -1,108 +1,109 @@
-import alt from '../alt'
-import Actions from '../actions'
-import {decorate, bind, datasource} from 'alt/utils/decorators'
-import ChannelSource from "../sources/ChannelSource"
-import MessageSource from "../sources/MessageSource"
-import _ from 'lodash'
-import ChatStore from './ChatStore.jsx'
+import alt from '../alt';
+import Actions from '../actions';
+import {decorate, bind, datasource} from 'alt/utils/decorators';
+import ChannelSource from '../sources/ChannelSource';
+import MessageSource from '../sources/MessageSource';
+import _ from 'lodash';
 
 @datasource(ChannelSource, MessageSource)
 @decorate(alt)
 class ChatStore {
-  constructor() {
-    this.state = { user: null, messages: null, messagesLoading: true}
-  }
-
-  @bind(Actions.sendMessage)
-  sendMessage(message) {
-    this.state.message = message 
-    setTimeout(this.getInstance().sendMessage, 10)
-  }
-
-  @bind(Actions.messageReceived)
-  messageReceived() {
-    if (this.state.messages[msg.key]) {
-      return
-    }
-
-    this.state.message[msg.key] = msg
-    this.setState({
-      messages: this.state.messages
-    })
+  constructor(){
+    this.state = {
+      user: null,
+      messages: null,
+      messagesLoading: true
+    };
   }
 
   @bind(Actions.messagesLoading)
-  messagesLoading() {
+  messagesLoading(){
     this.setState({
       messagesLoading: true
-    })
+    });
   }
 
   @bind(Actions.messagesReceived)
-  receivedMessages(messages) {
+  receivedMessages(messages){
     _(messages)
       .keys()
-      .each((k) => {
-        messages[k].key = k
+      .each((k)=> {
+        messages[k].key = k;
       })
-      .value()
+      .value();
 
-      this.setState({
-        messages
-      })
+    this.setState({
+      messages,
+      messagesLoading: false
+    });
   }
 
-  @bind(Actions.channelsReceived)
-  receivedChannels(channels) {
-    let selectedChannel
-    _(channels)
-      .keys()
-      .each((key, index) => {
-        channels[key],key = key 
-        if(channels[key].selected) {          
-          selectedChannel = channels[key]
-        }
-      })
-      .value()
-      // if don't set variable in es6, goes channels: channels in es6 literals
-      this.setState({
-        channels,
-        selectedChannel
-      })
 
-      setTimeout(this.getInstance().getMessages, 100)
+  @bind(Actions.sendMessage)
+  sendMessage(message){
+    this.state.message = message;
+    setTimeout(this.getInstance().sendMessage, 10);
+  }
+
+  @bind(Actions.messageReceived)
+  messageReceived(msg){
+    if(this.state.messages[msg.key]){
+      return;
+    }
+
+    this.state.messages[msg.key] = msg;
+
+    this.setState({
+      messages: this.state.messages
+    });
   }
 
   @bind(Actions.channelOpened)
-  channelOpened(selectedChannel) {
+  channelOpened(selectedChannel){
     _(this.state.channels)
       .values()
-      .each((channel) => {
-        channel.selected = false
+      .each((channel)=> {
+        channel.selected = false;
       })
-      .value()
+      .value();
 
-      selectedChannel.selected = true
+    selectedChannel.selected = true;
 
-      this.setState({
-        selectedChannel,
-        channels: this.state.channels
-      })
+    this.setState({
+      selectedChannel,
+      channels: this.state.channels,
+      messagesDirty: true
+    });
 
-      setTimeout(this.getInstance().getMessages, 100)
+    setTimeout(this.getInstance().getMessages, 100);
   }
 
-  static willtransitionTo(transition) {
-    var state = ChatStore.getState()
-    if (!state.user) {
-      transition.redirect('/login')
-    }
+  @bind(Actions.channelsReceived)
+  receivedChannels(channels){
+    let selectedChannel;
+    _(channels)
+      .keys()
+      .each((key, index) => {
+        channels[key].key = key;
+        if(channels[key].selected){
+          selectedChannel = channels[key];
+        }
+      })
+      .value();
+
+    this.setState({
+      channels,
+      selectedChannel,
+      messagesDirty: true
+    });
+
+    setTimeout(this.getInstance().getMessages, 100);
   }
-  // alt makes sure bind to action
+
   @bind(Actions.login)
-  login(user) {
-    this.setState({ user: user})
+  login(user){
+    this.setState({user: user});
   }
 }
 
-export default alt.createStore(ChatStore)
+export default alt.createStore(ChatStore);
