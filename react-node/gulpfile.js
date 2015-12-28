@@ -16,6 +16,7 @@ var config = {
   paths: {
     html: './src/*.html',
     js: './src/**/*.js',
+    images: './src/images/*',
     css: [
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
       'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -44,6 +45,15 @@ gulp.task('html', function() {
   gulp.src(config.paths.html)
       .pipe(gulp.dest(config.paths.dist))
       .pipe(connect.reload())
+})
+
+gulp.task('images', function() {
+  gulp.src(config.paths.images)
+      .pipe(gulp.dest(config.paths.dist+'/images'))
+      .pipe(connect.reload())
+
+      gulp.src('./src/favicon.ico')
+          .pipe(gulp.dest(config.paths.dist));
 })
 
 gulp.task('js', function() {

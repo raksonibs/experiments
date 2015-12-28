@@ -1,0 +1,19 @@
+"use strict";
+
+var React = require('react');
+
+var Header = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <h1> Header </h1>
+        <ul>
+          <li><a href="/"> react</a> </li>
+          <li><a href="/#about"> flux</a> </li>
+        </ul>
+      </div>
+    );
+  }
+});
+
+module.exports = Header;
