@@ -5,7 +5,7 @@ var React = require('react');
 var Header = React.createClass({
   render: function() {
     return (
-      <div>
+      <div className="jumbotron">
         <h1> Header </h1>
         <ul>
           <li><a href="/"> react</a> </li>

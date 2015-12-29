@@ -1,7 +1,7 @@
 'use strict'
 
 var React = require('react');
-var AuthorApi = require('..../api/authorApi');
+var AuthorApi = require('../../api/authorApi');
 var AuthorList = require('./authorList')
 
 var AuthorPage = React.createClass({
