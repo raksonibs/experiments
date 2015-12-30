@@ -12,7 +12,20 @@ var AuthorPage = React.createClass({
       authors: AuthorStore.getAllAuthors()
     }
   },
-  // no longer need didmount because store gives empty array or authors which are stored
+
+  componentWillMount: function() {
+    AuthorStore.addChangeListener(this._onChange)
+  },
+
+  componentWillUnMount: function() {
+    AuthorStore.removeChangeListener(this._onChange)
+  },
+  // not done on manague author page because page transitions to new page gettinga  fresh state from initial state
+
+  _onChange: function() {
+    // called whenever store componenet changes
+    this.setState({ authors: AuthorStore.getAllAuthors()})
+  },
 
   render: function() {
     return (

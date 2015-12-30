@@ -15,6 +15,15 @@ var AuthorActions = {
     })
   },
 
+  deleteAuthor: function(id) {
+    AuthorApi.deleteAuthor(id)
+    // preloader have a separate dlete action, so can fire outt delete author action and once async deleted, can call author did actually delete author and hide preloaders
+    Dispatcher.dispatch({
+      actionType: ActionTypes.DELETE_AUTHOR,
+      id: id
+    })
+  },
+
   updateAuthor: function(author) {
     var updatedAuthor = AuthorApi.saveAuthor(author)
     
