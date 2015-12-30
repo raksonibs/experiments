@@ -10,7 +10,7 @@ var AuthorForm = React.createClass({
         <Input name="firstName" label="First Name" value={this.props.author.firstName} onChange={this.props.onChange} /><br />
         <Input name="lastName" label="Last Name" value={this.props.author.lastName} onChange={this.props.onChange} />
         <br />
-        <input type="submit" value="save" />
+        <input type="submit" value="save" onClick={this.props.onSave} />
       </form>
     )
   }
