@@ -11,11 +11,22 @@ var ManageAuthorPage = React.createClass({
   mixins: [
     Router.Navigation
   ],
+
+  statics: {
+    willTransitionForm: function(transition, component) {
+      if (component.state.dirty && !confirm("Leave without saving?")) {
+        transition.abort();
+        // don't move to new link
+      }
+    }
+  },
+
   getInitialState: function() {
     return (
       { 
         author: { id: '', firstName: '', lastName: ''}, 
-        errors: {} 
+        errors: {},
+        dirty: false
       }
     ) 
   },
@@ -41,6 +52,7 @@ var ManageAuthorPage = React.createClass({
 
   saveAuthor: function(event) {
     event.preventDefault();
+    this.setState({dirty: false});
     // don't want form to actually submit
 
     if (!this.authorFormIsValid()) {
@@ -54,12 +66,14 @@ var ManageAuthorPage = React.createClass({
   },
 
   setAuthorState: function(event) {
+    this.setState({dirty: true});
     // called for every keypress
     var field = event.target.name;
     var value = event.target.value;
     this.state.author[field] = value;
     return this.setState({author: this.state.author})
   },
+
   render: function() {
     return (
       <div>

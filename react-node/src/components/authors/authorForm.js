@@ -4,6 +4,13 @@ var React = require('react');
 var Input = require('../common/textInput')
 // smart level, passing data down to dumb data
 var AuthorForm = React.createClass({
+  propTypes: {
+    author: React.PropTypes.object.isRequired,
+    onSave: React.PropTypes.func.isRequired,
+    onChange: React.propTypes.func.isRequired,
+    errors: React.PropTypes.object
+  },
+
   render: function() {
     return (
       <form>
