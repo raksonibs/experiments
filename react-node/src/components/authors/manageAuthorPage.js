@@ -31,6 +31,15 @@ var ManageAuthorPage = React.createClass({
     ) 
   },
 
+  // hydrating form componenet will cmojunt, did vs will. won't cause reset if will rather than did
+
+  componentWillMount: function() {
+    var authorId = this.props.params.id //from path, not always
+    if (authorId) {
+      this.setState({ author: AuthorApi.getAuthorById(authorId)});
+    }
+  },
+
   authorFormIsValid: function() {
     var formIsValid = true;
     this.state.errors = {};
