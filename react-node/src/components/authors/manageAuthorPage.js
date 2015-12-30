@@ -5,6 +5,7 @@ var React = require('react');
 var AuthorForm = require('./authorForm')
 var Router = require('react-router')
 var AuthorApi = require('../../api/authorApi')
+var toastr = require('toastr')
 
 var ManageAuthorPage = React.createClass({
   mixins: [
@@ -12,14 +13,42 @@ var ManageAuthorPage = React.createClass({
   ],
   getInitialState: function() {
     return (
-      { author: { id: '', firstName: '', lastName: ''} }
+      { 
+        author: { id: '', firstName: '', lastName: ''}, 
+        errors: {} 
+      }
     ) 
+  },
+
+  authorFormIsValid: function() {
+    var formIsValid = true;
+    this.state.errors = {};
+    // since defined state should initailize it in intial state
+    if (this.state.author.firstName.length < 3) {
+      this.state.errors.firstName = "Blah blah"
+      formIsValid = false;
+    }
+
+    if (this.state.author.lastName.length < 3) {
+      this.state.errors.lastName = "Blah blah lastname"
+      formIsValid =  false
+    }
+
+    this.setState({errors: this.state.errors})
+
+    return formIsValid
   },
 
   saveAuthor: function(event) {
     event.preventDefault();
     // don't want form to actually submit
+
+    if (!this.authorFormIsValid()) {
+      return;
+    }
+
     AuthorApi.saveAuthor(this.state.author);
+    toastr.success('Author saved!')
     // mixin makes this possible
     this.transitionTo('authors')
   },
@@ -35,7 +64,11 @@ var ManageAuthorPage = React.createClass({
     return (
       <div>
         <h1> test</h1>
-        <AuthorForm author={this.state.author} onChange={this.setAuthorState} onSave={this.saveAuthor}/>
+        <AuthorForm author={this.state.author} 
+        onChange={this.setAuthorState} 
+        onSave={this.saveAuthor}
+        errors={this.state.errors}
+        />
       </div>
     )
   }
