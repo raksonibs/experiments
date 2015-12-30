@@ -4,7 +4,8 @@ var React = require('react');
 // smart level, passing data down to dumb data
 var AuthorForm = require('./authorForm')
 var Router = require('react-router')
-var AuthorApi = require('../../api/authorApi')
+var AuthorActions = require('../../actions/authorActions')
+var AuthorStore = require('../../stores/authorStore')
 var toastr = require('toastr')
 
 var ManageAuthorPage = React.createClass({
@@ -36,7 +37,7 @@ var ManageAuthorPage = React.createClass({
   componentWillMount: function() {
     var authorId = this.props.params.id //from path, not always
     if (authorId) {
-      this.setState({ author: AuthorApi.getAuthorById(authorId)});
+      this.setState({ author: AuthorStore.getAuthorById(authorId)});
     }
   },
 
@@ -61,14 +62,14 @@ var ManageAuthorPage = React.createClass({
 
   saveAuthor: function(event) {
     event.preventDefault();
-    this.setState({dirty: false});
     // don't want form to actually submit
 
     if (!this.authorFormIsValid()) {
       return;
     }
 
-    AuthorApi.saveAuthor(this.state.author);
+    AuthorActions.createAuthor(this.state.author);
+    this.setState({dirty: false});
     toastr.success('Author saved!')
     // mixin makes this possible
     this.transitionTo('authors')
