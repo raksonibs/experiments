@@ -45,6 +45,14 @@ Dispatcher.register(function(action) {
       _authors = action.initialData.authors;
       AuthorStore.emitChange();
       break;
+    case ActionTypes.UPDATE_AUTHOR:
+    // action.author is from payload of authorActions
+      var existingAuthor = _.find(_authors, {id: action.author.id})
+      var existingAuthorIndex = _.indexOf(_authors, existingAuthor)
+      // replace author with new updated author
+      _.authors.splice(existingAuthorIndex, 1, action.author)
+      AuthorStore.emitChange();
+      break;
     default:
 
       // react componenets need to be aware of store
