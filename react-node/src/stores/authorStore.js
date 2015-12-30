@@ -36,10 +36,18 @@ var AuthorStore = assign({}, Event.EventEmitter.prototype, {
 // how diff then pub/sub
 Dispatcher.register(function(action) {
   switch(action.actionType) {
-    case: ActionTypes.CREATE_AUTHOR:
+    case ActionTypes.CREATE_AUTHOR:
     // action.author is from payload of authorActions
       _authors.push(action.author)
       AuthorStore.emitChange();
+      break;
+    case ActionTypes.INITIALIZE:
+      _authors = action.initialData.authors;
+      AuthorStore.emitChange();
+      break;
+    default:
+
+      // react componenets need to be aware of store
   }
 })
 
