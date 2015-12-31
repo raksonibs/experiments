@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
 
 var app = express();
 
@@ -24,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+require('./routes/things.js')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,6 +58,22 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
+});
+
+if (app.get('env') === 'development') {
+    console.log("connecting to local db");
+    var db = "mongodb://localhost/myapp";
+    mongoose.connect(db, function() {
+        // console.log("dropping local db to renew");
+        // mongoose.connection.db.dropDatabase();
+    })   
+} else {
+    console.log("connecting to prod db");
+    mongoose.connect(secrets.db);
+}
+
+mongoose.connection.on('error', function() {
+  console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
 
 
