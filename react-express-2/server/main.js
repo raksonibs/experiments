@@ -17,47 +17,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(__dirname + "/../dist"))
+app.use(express.static(__dirname + "./../dist"))
 
 require('../routes/things.js')(app);
 
 app.get('/', function(req, res) {
-  // res.render('./../app/index.ejs', {})
-  // virtual instance and serialize it
-  
-    res.render('./../app/index.ejs',{})
+    // virtual instance and serialize it
+    res.render('./../src/index.ejs', {})
 })
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
 
 if (app.get('env') === 'development') {
     console.log("connecting to local db");
