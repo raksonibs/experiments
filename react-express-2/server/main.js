@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var routes = require('../routes/index');
-var users = require('../routes/users');
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
 var app = new express();
 
@@ -17,13 +17,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(__dirname + "./../dist"))
+app.use(express.static(__dirname + "/../.tmp"))
+app.listen(7777);
 
-require('../routes/things.js')(app);
+require('./routes/things.js')(app);
 
 app.get('/', function(req, res) {
     // virtual instance and serialize it
-    res.render('./../src/index.ejs', {})
+    res.render('./../app/index.ejs', {})
 })
 
 if (app.get('env') === 'development') {
