@@ -14,5 +14,12 @@ node .bin/www
 
 great, we have our basic foundation. now gulp and make work with react!
 
-gulp
+
+
+gulp->
+
+follow gulpfile and explain
+-> server changes with files from setup express
+-> other changes to directory sturcture
+-> explain changes in the server file now
 webpack
