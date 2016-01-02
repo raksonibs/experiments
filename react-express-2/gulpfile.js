@@ -28,7 +28,12 @@ gulp.task('copy', function() {
   .pipe(gulp.dest('./.tmp'));
 })
 
-gulp.task('serve', ['bundle', 'live-server'], function() {
+gulp.task('watch', function() {
+  gulp.watch('./app/**/*.js', ['js'])
+
+})
+
+gulp.task('serve', ['bundle', 'live-server', 'watch'], function() {
   browserSync.init(null, {
     proxy: 'http://localhost:7777',
     port: 9001
