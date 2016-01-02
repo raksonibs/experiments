@@ -11,10 +11,7 @@ module.exports = React.createClass({
   addThing: function(e) {
     e.preventDefault();
     let thing = {name: this.state.input}
-    APIHelper.post('api/things', thing)
-      .then(function(data) {
-      console.log(data)      
-    })
+    this.props.addThing(thing)
 
     this.setState({
       input: ''
@@ -23,7 +20,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className='things--add'>
-        <form onSubmit={this.props.addThing}.bind(this) >
+        <form>
           <input value={this.state.input} onChange={this.handleInputName}/>
           <button onClick={this.addThing}> Add Thing </button>
         </form>

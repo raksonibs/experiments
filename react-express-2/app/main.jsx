@@ -7,14 +7,15 @@ var initialThings = []
 
 var App = React.createClass({
   getInitialState: function() {
-    this.setState({
-      things: initialThings
-    })
     return {things: initialThings}
   },
   addThing: function(thing) {
     initialThings.push(thing)
-    triggerListeners()
+    
+    APIHelper.post('api/things', thing)
+      .then(function(data) {
+      console.log(data)      
+    })
 
     this.setState({things: initialThings})
   },
@@ -33,7 +34,7 @@ var App = React.createClass({
           <div>
             <h1>Things I like!</h1>
             <ThingsList things={this.state.things} />
-            <ThingForm onSubmit={this.addThing} />
+            <ThingForm addThing={this.addThing} />
           </div>
         )
     }
