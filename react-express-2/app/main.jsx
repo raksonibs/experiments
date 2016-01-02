@@ -1,13 +1,31 @@
 import React from 'react';
 import ThingsList from './components/ThingsList';
+import APIHelper from './helpers/APIHelper'
 
-var App = React.createClass({ 
+var initialThings = []
+
+
+var App = React.createClass({
+  getInitialState: function() {
+    this.setState({
+      things: initialThings
+    })
+    return {things: initialThings}
+  },
+  componentWillMount: function() {
+    let component = this
+    APIHelper.get("api/things")
+      .then(function(data) {
+        component.setState({
+          things: data
+        })
+    })
+  },
     render() {
-        let things = [{name: 'test', loved: false, id: '1'}]
         return (
           <div>
             <h1>Things I like!</h1>
-            <ThingsList things={things} />
+            <ThingsList things={this.state.things} />
           </div>
         )
     }
