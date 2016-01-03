@@ -43,3 +43,11 @@ mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
 
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  console.log('Listening on port' + process.env.PORT)
+  console.log('Express server listening on port ' + server.address().port);
+});
+
