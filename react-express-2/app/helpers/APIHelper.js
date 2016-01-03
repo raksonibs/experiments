@@ -22,5 +22,28 @@ module.exports = {
         error: error
       })
     })
+  },
+  delete: function(url) {
+    return new Promise(function(success, error) {
+      $.ajax({
+        url: url,
+        method: "DELETE",
+        dataType: "json",
+        success: success,
+        error: error
+      })
+    })
+  },
+  update: function(url,data) {
+    return new Promise(function(success, error) {
+      $.ajax({
+        url: url,
+        data: data,
+        method: "PATCH",
+        dataType: "json",
+        success: success,
+        error: error
+      })
+    })
   }
 }

@@ -11,7 +11,7 @@ var App = React.createClass({
   },
   addThing: function(thing) {
     initialThings.push(thing)
-    
+
     APIHelper.post('api/things', thing)
       .then(function(data) {
       console.log(data)      

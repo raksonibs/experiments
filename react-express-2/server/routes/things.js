@@ -38,8 +38,13 @@ app.route('/api/things/:id')
     Thing.findOne({
       _id: req.body._id
     }, function(error, thing) {
-      for (var key in req.body) {
-        thing[key] = req.body[key]
+      // for (var key in req.body) {
+      //   thing[key] = req.body[key]
+      // }
+      if (thing.loved === true) {        
+        thing.loved = false 
+      } else {
+        thing.loved = true
       }
 
       thing.save()
