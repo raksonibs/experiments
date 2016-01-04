@@ -19,6 +19,24 @@ var App = React.createClass({
 
     this.setState({things: initialThings})
   },
+  deleteThing: function(thing) {    
+    var index
+    initialThings.filter(function(_thing, _index){
+      if (_thing.name == thing.name) {
+        index = _index
+      }
+    })
+
+    initialThings.splice(index, 1)
+
+    this.setState({things: initialThings})
+    let thingId = thing._id
+    let url = 'api/things/' + thingId
+    APIHelper.delete(url)
+      .then(function(data) {
+        console.log('deleted!')
+      })
+  },
   componentWillMount: function() {
     let component = this
     APIHelper.get("api/things")
@@ -33,7 +51,7 @@ var App = React.createClass({
     return (
       <div>
         <h1>Things I like!</h1>
-        <ThingsList things={this.state.things} />
+        <ThingsList delete={this.deleteThing} things={this.state.things} />
         <ThingForm addThing={this.addThing} />
       </div>
     )

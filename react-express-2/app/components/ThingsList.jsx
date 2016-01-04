@@ -6,7 +6,7 @@ var ThingsList = React.createClass({
       return (
         <div className="list">
          {this.props.things.map((thing, i) => {
-            return <Thing thing={thing} key={i} />
+            return <Thing delete={this.props.delete} thing={thing} key={i} />
           })}
        </div>
     );
