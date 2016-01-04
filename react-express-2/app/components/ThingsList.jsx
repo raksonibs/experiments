@@ -1,16 +1,16 @@
 import React from 'react';
 import Thing from './Thing'
 
-class ThingsList extends React.Component {
+var ThingsList = React.createClass({
     render() {
       return (
         <div className="list">
          {this.props.things.map((thing, i) => {
-            return <Thing thing={thing} key={i} onClick={this.props.makeLoved(thing.id)}/>
+            return <Thing thing={thing} key={i} />
           })}
        </div>
     );
   }
-}
+})
 
 export default ThingsList;
