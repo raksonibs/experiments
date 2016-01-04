@@ -35,17 +35,17 @@ app.route('/api/things/:id')
     });
   })
   .patch(function(req, res) {
+    console.log('test')
     Thing.findOne({
-      _id: req.body._id
+      _id: req.params.id
     }, function(error, thing) {
-      // for (var key in req.body) {
-      //   thing[key] = req.body[key]
-      // }
-      if (thing.loved === true) {        
+      if (thing.loved === 'true') {        
         thing.loved = false 
       } else {
         thing.loved = true
       }
+
+      if (error) next(error)
 
       thing.save()
       res.status(200).send()

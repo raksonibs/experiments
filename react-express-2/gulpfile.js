@@ -24,9 +24,16 @@ var paths = {
     "jsx": "./app/**/*.jsx"
 };
 
+var server;
+
 gulp.task('live-server', function() {
-  var server = new LiveServer('server/main.js');
+  server = new LiveServer('server/main.js');
   server.start();
+})
+
+gulp.task('stop-server', function() {
+  server.stop()
+  setTimeout(function() { console.log('stopping server') }, 1000)
 })
 // gulp dependent on copy which takes files elsewhere
 gulp.task('bundle', ['copy'], function() {
@@ -48,7 +55,8 @@ gulp.task('copy', function() {
 })
 
 gulp.task('serve', ['bundle', 'live-server'], function() {
-  return gulp.watch([paths.js, paths.jsx], ['bundle', browserSync.reload])
+  gulp.watch(['./server/**/*.js'], ['bundle',  'stop-server', 'live-server', browserSync.reload])
+  gulp.watch([paths.js, paths.jsx], ['bundle', browserSync.reload])
 })
 
 gulp.task('default', ['serve'])

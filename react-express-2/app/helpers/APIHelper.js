@@ -34,11 +34,10 @@ module.exports = {
       })
     })
   },
-  update: function(url,data) {
+  update: function(url) {
     return new Promise(function(success, error) {
       $.ajax({
         url: url,
-        data: data,
         method: "PATCH",
         dataType: "json",
         success: success,
