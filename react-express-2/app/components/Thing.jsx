@@ -1,22 +1,9 @@
 import React from 'react';
-import APIHelper from '../helpers/APIHelper'
 
 module.exports = React.createClass({
   makeLoved: function(e) {
     e.preventDefault()
-    let thingId = this.props.thing._id
-    let url = 'api/things/' + thingId
-    APIHelper.update(url)
-    .then(function(data) {
-      console.log('completed Call!')      
-    })
-    if (this.props.thing.loved === 'false') {
-      this.props.thing.loved = 'true'
-    } else {      
-      this.props.thing.loved = 'false'
-    }
-
-    console.log(this.props.thing.loved)
+    this.props.update(this.props.thing)
   },
   delete: function(e) {
     e.preventDefault()

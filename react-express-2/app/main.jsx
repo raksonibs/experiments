@@ -19,6 +19,29 @@ var App = React.createClass({
 
     this.setState({things: initialThings})
   },
+  updateThing: function(thing) {
+    var index
+    initialThings.filter(function(_thing, _index){
+      if (_thing.name == thing.name) {
+        index = _index
+      }
+    })
+
+    let thingList = initialThings[index]
+    if (thingList.loved === 'false') {
+      thingList.loved = 'true'
+    } else {      
+      thingList.loved = 'false'
+    }
+
+    this.setState({things: initialThings})
+    let thingId = thing._id
+    let url = 'api/things/' + thingId
+    APIHelper.update(url)
+      .then(function(data) {
+        console.log('update!')
+      })
+  },
   deleteThing: function(thing) {    
     var index
     initialThings.filter(function(_thing, _index){
@@ -51,7 +74,7 @@ var App = React.createClass({
     return (
       <div>
         <h1>Things I like!</h1>
-        <ThingsList delete={this.deleteThing} things={this.state.things} />
+        <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.state.things} />
         <ThingForm addThing={this.addThing} />
       </div>
     )
