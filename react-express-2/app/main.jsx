@@ -29,15 +29,15 @@ var App = React.createClass({
         initialThings = data
     })
   },
-    render() {
-        return (
-          <div>
-            <h1>Things I like!</h1>
-            <ThingsList things={this.state.things} />
-            <ThingForm addThing={this.addThing} />
-          </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h1>Things I like!</h1>
+        <ThingsList things={this.state.things} />
+        <ThingForm addThing={this.addThing} />
+      </div>
+    )
+  }
 })
 
 React.render(

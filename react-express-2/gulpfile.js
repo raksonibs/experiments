@@ -47,45 +47,6 @@ gulp.task('copy', function() {
   .pipe(gulp.dest('./.tmp'));
 })
 
-gulp.task('watch', function() {
-    gulp.watch(paths.JS, ['js']);
-
-    var watcher = watchify(browserify({
-        entries: paths.ENTRY_POINT,
-        transform: [babelify],
-        debug: true,
-        cache: {},
-        packageCache: {}
-    }));
-
-    watcher.on('update', function(){
-            watcher.bundle()
-            .on('error', gutil.log)
-            .pipe(source(paths.OUT))
-            .pipe(gulp.dest(paths.DEST_BUILD))
-            .pipe(browserSync.reload({stream: true}));
-
-        console.log('Updated');
-    })
-        .bundle()
-        .pipe(source(paths.OUT))
-        .pipe(gulp.dest(paths.DEST_BUILD));
-
-    browserSync.init({
-        server: {
-            baseDir: paths.DEST
-        }
-    });
-});
-
-// .task('serve', ['bower', 'clean', 'lint', 'less', 'js', 'server'], function() {
-//   return gulp.watch([
-//     package.paths.js, package.paths.jsx, package.paths.html, package.paths.less
-//   ], [
-//    'lint', 'less', 'js', browserSync.reload
-//   ]);
-// })
-
 gulp.task('serve', ['bundle', 'live-server'], function() {
   return gulp.watch([paths.js, paths.jsx], ['bundle', browserSync.reload])
 })
