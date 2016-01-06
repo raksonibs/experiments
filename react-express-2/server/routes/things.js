@@ -39,16 +39,20 @@ app.route('/api/things/:id')
     Thing.findOne({
       _id: req.params.id
     }, function(error, thing) {
-      if (thing.loved === 'true') {        
-        thing.loved = false 
+      if (error || thing === undefined) {
+         res.status(500).send()
       } else {
-        thing.loved = true
+
+        if (thing.loved === 'true') {        
+          thing.loved = false 
+        } else {
+          thing.loved = true
+        }
+
+
+        thing.save()
+        res.status(200).send()
       }
-
-      if (error) next(error)
-
-      thing.save()
-      res.status(200).send()
     })
   })
 

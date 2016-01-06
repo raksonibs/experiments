@@ -12,6 +12,7 @@ var gutil = require('gulp-util'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
 
 var paths = {
     ALL: ['app/*.js', 'app/**/*.js', 'src/index.html'],
@@ -36,7 +37,7 @@ gulp.task('stop-server', function() {
   setTimeout(function() { console.log('stopping server') }, 1000)
 })
 // gulp dependent on copy which takes files elsewhere
-gulp.task('bundle', ['copy'], function() {
+gulp.task('bundle', ['copy', 'sass'], function() {
   return browserify({
     entries: 'app/main.jsx',
     extensions: ['.jsx'],
@@ -54,9 +55,21 @@ gulp.task('copy', function() {
   .pipe(gulp.dest('./.tmp'));
 })
 
+gulp.task('sass', function () {
+  console.log('sassing')
+  gulp.src('./sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./.tmp'));
+});
+ 
+gulp.task('sass:watch', function () {
+  gulp.watch('./sass/**/*.scss', ['sass']);
+});
+
 gulp.task('serve', ['bundle', 'live-server'], function() {
   gulp.watch(['./server/**/*.js'], ['bundle',  'stop-server', 'live-server', browserSync.reload])
   gulp.watch([paths.js, paths.jsx], ['bundle', browserSync.reload])
+  gulp.watch('./sass/**/*.scss', ['bundle', browserSync.reload])
 })
 
 gulp.task('default', ['serve'])
