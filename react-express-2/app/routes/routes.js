@@ -15,20 +15,4 @@ let routes = (
     </Router>
 );
 
- // <Router history={browserHistory}>
- //    <Route path="/" component={App}>
- //      <Route path="about" component={About}/>
- //      <Route path="users" component={Users}>
- //        <Route path="/user/:userId" component={User}/>
- //      </Route>
- //      <Route path="*" component={NoMatch}/>
- //    </Route>
- //  </Router>
-
-// let routes = (
-//   <Route path="/" handler={App}>
-//     <DefaultRoute handler={ThingContainer} />
-//   </Route>
-// );
-
 module.exports = routes;
