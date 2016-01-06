@@ -6,6 +6,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import RaisedButton from 'material-ui/lib/raised-button';
 import AppBarConst from '../common/AppBarIconMenu';
 import {RouteHandler} from 'react-router';
+import Index from '../components/ThingContainer.jsx'
 
 var App = React.createClass({
   getInitialState: function() {
@@ -21,14 +22,6 @@ var App = React.createClass({
     let newMuiTheme = ThemeManager.modifyRawThemePalette(this.state.muiTheme, {
       accent1Color: Colors.deepOrange500,
     });
-
-    APIHelper.get("api/things")
-      .then(function(data) {
-        component.setState({
-          things: data
-        })
-        initialThings = data
-    })
   },
   render() {
     return (
