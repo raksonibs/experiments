@@ -4,6 +4,7 @@ import Card from 'material-ui/lib/card/card';
 import CardText from 'material-ui/lib/card/card-text';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardActions from 'material-ui/lib/card/card-actions';
+import {RouteHandler} from 'react-router';
 
 module.exports = React.createClass({
   makeLoved: function(e) {
