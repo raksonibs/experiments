@@ -25,9 +25,14 @@ var paths = {
     "jsx": "./app/**/*.jsx"
 };
 
+var sys = require('sys')
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { sys.puts(stdout) }
+
 var server;
 
 gulp.task('live-server', function() {
+  exec("pkill 'node'", puts);
   server = new LiveServer('server/main.js');
   server.start();
 })

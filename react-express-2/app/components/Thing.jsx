@@ -1,4 +1,9 @@
 import React from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
+import Card from 'material-ui/lib/card/card';
+import CardText from 'material-ui/lib/card/card-text';
+import CardHeader from 'material-ui/lib/card/card-header';
+import CardActions from 'material-ui/lib/card/card-actions';
 
 module.exports = React.createClass({
   makeLoved: function(e) {
@@ -11,11 +16,18 @@ module.exports = React.createClass({
   },
   render: function() {
         return (
-          <div className="list-item">
-            {this.props.thing.name}: {this.props.thing._id} is loved ({this.props.thing.loved})
-            <button onClick={this.makeLoved}> Make Un/Loved</button>
-            <button onClick={this.delete}> Delete</button>
-          </div>
+          <Card className="list-item">
+            <CardHeader
+              title={this.props.thing.name}
+              subtitle={this.props.thing._id} />
+            <CardText>
+               Could be loved. Right now it is {this.props.thing.loved}
+            </CardText>
+            <CardActions>
+              <RaisedButton onClick={this.makeLoved} label="Make Un/Loved" />
+              <RaisedButton primary={true} onClick={this.delete} label="Delete" />
+            </CardActions>
+          </Card>
         );
     }
 })

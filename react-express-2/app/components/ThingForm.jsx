@@ -1,5 +1,7 @@
 import React from 'react';
 import APIHelper from '../helpers/APIHelper'
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -10,7 +12,7 @@ module.exports = React.createClass({
   },
   addThing: function(e) {
     e.preventDefault();
-    let thing = {name: this.state.input}
+    let thing = {name: this.state.input, loved: 'false'}
     this.props.addThing(thing)
 
     this.setState({
@@ -20,10 +22,8 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className='things--add'>
-        <form>
-          <input value={this.state.input} onChange={this.handleInputName}/>
-          <button onClick={this.addThing}> Add Thing </button>
-        </form>
+          <TextField hintText={this.state.input || "Add a new One"} onChange={this.handleInputName}/>
+          <RaisedButton secondary={true} onClick={this.addThing} label="Add Thing"/>
       </div>
     )
   }

@@ -3,12 +3,21 @@ import ThingsList from './components/ThingsList';
 import APIHelper from './helpers/APIHelper';
 import ThingForm from './components/ThingForm';
 import toastr from 'toastr';
+import mui from 'material-ui';
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
+import Colors from 'material-ui/lib/styles/colors';
+import RaisedButton from 'material-ui/lib/raised-button';
+import AppBarConst from './common/AppBarIconMenu';
+
+
+var AppBar = mui.AppBar;
 
 var initialThings = []
 
 var App = React.createClass({
   getInitialState: function() {
-    return {things: initialThings}
+    return {things: initialThings, muiTheme: ThemeManager.getMuiTheme(LightRawTheme),}
   },
   addThing: function(thing) {
     initialThings.push(thing)
@@ -18,8 +27,9 @@ var App = React.createClass({
       console.log(data)      
     })
 
-    toastr.success('Author Created!')
     this.setState({things: initialThings})
+
+    toastr.success('Author Created!')
   },
   updateThing: function(thing) {
     var index
@@ -64,8 +74,17 @@ var App = React.createClass({
       })
     toastr.success('Author Deleted!')
   },
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object,
+  },
+
   componentWillMount: function() {
     let component = this
+    let newMuiTheme = ThemeManager.modifyRawThemePalette(this.state.muiTheme, {
+      accent1Color: Colors.deepOrange500,
+    });
+
     APIHelper.get("api/things")
       .then(function(data) {
         component.setState({
@@ -77,6 +96,7 @@ var App = React.createClass({
   render() {
     return (
       <div>
+        <AppBarConst />
         <h1>Things I like!</h1>
         <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.state.things} />
         <ThingForm addThing={this.addThing} />
