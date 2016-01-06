@@ -1,7 +1,8 @@
 import React from 'react';
 import ThingsList from './components/ThingsList';
-import APIHelper from './helpers/APIHelper'
+import APIHelper from './helpers/APIHelper';
 import ThingForm from './components/ThingForm';
+import toastr from 'toastr';
 
 var initialThings = []
 
@@ -17,6 +18,7 @@ var App = React.createClass({
       console.log(data)      
     })
 
+    toastr.success('Author Created!')
     this.setState({things: initialThings})
   },
   updateThing: function(thing) {
@@ -41,6 +43,7 @@ var App = React.createClass({
       .then(function(data) {
         console.log('update!')
       })
+    toastr.success('Author Updated!')
   },
   deleteThing: function(thing) {    
     var index
@@ -59,6 +62,7 @@ var App = React.createClass({
       .then(function(data) {
         console.log('deleted!')
       })
+    toastr.success('Author Deleted!')
   },
   componentWillMount: function() {
     let component = this

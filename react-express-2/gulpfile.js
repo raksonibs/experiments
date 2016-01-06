@@ -51,7 +51,7 @@ gulp.task('bundle', ['copy', 'sass'], function() {
 })
 
 gulp.task('copy', function() {
-  gulp.src(["app/*.css"])
+  gulp.src(["app/*.css", 'node_modules/toastr/build/toastr.css'])
   .pipe(gulp.dest('./.tmp'));
 })
 
