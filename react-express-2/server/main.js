@@ -24,12 +24,12 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/../.tmp"))
 app.listen(7777);
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 require('./routes/things.js')(app);
-require('./routes/users.js')(app, passport);
+
 
 app.get('/', function(req, res) {
     // virtual instance and serialize it

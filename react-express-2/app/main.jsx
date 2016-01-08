@@ -14,6 +14,7 @@ import APIHelper from './helpers/APIHelper';
 import ThingsList from './components/ThingsList';
 import ThingForm from './components/ThingForm';
 import Cats from './components/Cats';
+import Login from './components/Login';
  
 
 var AppBar = mui.AppBar;
@@ -115,6 +116,7 @@ let routes = (
         <Route path="/" component={App}>
             <Route path="things" component={Index}/>
             <Route path="cats" component={Cats}/>
+            <Route path="login" handler={Login} />
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>
