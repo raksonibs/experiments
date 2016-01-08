@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var session  = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -20,7 +24,12 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/../.tmp"))
 app.listen(7777);
 
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
 require('./routes/things.js')(app);
+require('./routes/users.js')(app, passport);
 
 app.get('/', function(req, res) {
     // virtual instance and serialize it
