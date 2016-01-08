@@ -99,12 +99,25 @@ var App = React.createClass({
         initialThings = data
     })
   },
+
+  loginUser: function() {
+    this.setState({user: true})
+  },
+
   render() {
+    let view;
+    if (this.state.user) {
+          view = <div></div>
+        } else {
+          view = <Login />
+        }
     return (
       <div>
         <AppBarConst />
-        {this.props.children}        
+        {{view}}
+        {this.props.children}
       </div>
+
     )
   }
 })
@@ -116,7 +129,7 @@ let routes = (
         <Route path="/" component={App}>
             <Route path="things" component={Index}/>
             <Route path="cats" component={Cats}/>
-            <Route path="login" handler={Login} />
+            <Route path="login" component={Login} />
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>

@@ -9,9 +9,9 @@ var {
 
 
 class Login extends React.Component {
-
-    onClick(){
-      // set to true user
+    onClick() {
+      // need to set user up!
+      
     }
 
     render(){
@@ -39,4 +39,4 @@ class Login extends React.Component {
 }
 
 
-module.exports = Login;
+export default Login;
