@@ -11,6 +11,7 @@ import APIHelper from './helpers/APIHelper';
 import Cats from './components/Cats';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import App from './components/App';
 
 var AppBar = mui.AppBar;
 
@@ -18,24 +19,10 @@ var initialThings = []
 
 var users = {email: 'oskar@fake.com'}
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {things: initialThings, muiTheme: ThemeManager.getMuiTheme(LightRawTheme), user: null}
- },
-
-  render() {
-    return (
-      <div>
-        <AppBarConst />
-        {this.props.children}
-      </div>
-    )
-  }
-})
-
 let routes = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
+            <IndexRoute component={Index}/>
             <Route path="things" component={Index}/>
             <Route path="cats" component={Cats}/>
             <Route path="login" component={Login} />
