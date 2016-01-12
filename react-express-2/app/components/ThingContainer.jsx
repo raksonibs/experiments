@@ -7,20 +7,24 @@ import Login from './Login';
 import Signup from './Signup';
 import ThingLogic from './ThingLogic';
 
+var loggedInUser = null;
+
 var ThingContainer = React.createClass({
   getInitialState: function() {
-    return {user: null}
+    return {user: loggedInUser}
  },
 
-  loginUser: function() {
-    this.setState({user: true})
+  loginUser: function(user) {
+    toastr.success('Login Successful!')
+    loggedInUser = user;
+    this.setState({user: loggedInUser})
   },
     render() {
       let view;
       if (this.state.user) {
             view = <ThingLogic />
           } else {
-            view = <Login />
+            view = <Login loginUser={this.loginUser}/>
           }
 
       return (

@@ -10,11 +10,15 @@ var {
 } = mui;
 
 
-class Signup extends React.Component {
-    onClick() {
-      // need to set user up!
-      
-    }
+var Signup = React.createClass({
+    getInitialState: function() {
+      return {email: '', password: ''}
+    },
+    SignUpUser: function(e) {
+      e.preventDefault();
+      let user = { email: this.state.email, password: this.state.password }
+      this.props.loginUser(user)
+    },
     render(){
         return (
             <Card style={{
@@ -43,7 +47,6 @@ class Signup extends React.Component {
 
         );
     }
-}
-
+})
 
 export default Signup;

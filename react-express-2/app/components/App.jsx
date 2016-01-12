@@ -10,7 +10,7 @@ import Index from '../components/ThingContainer.jsx'
 
 var App = React.createClass({
   getInitialState: function() {
-    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme), user: null}
+    return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)}
  },
 
   render() {

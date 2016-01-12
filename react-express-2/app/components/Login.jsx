@@ -9,12 +9,15 @@ var {
     RaisedButton
 } = mui;
 
-
-class Login extends React.Component {
-    onClick() {
-      // need to set user up!
-      
-    }
+var Login = React.createClass({
+    getInitialState: function() {
+      return {email: '', password: ''}
+    },
+    loginUser: function(e) {
+      e.preventDefault();
+      let user = { email: this.state.email, password: this.state.password }
+      this.props.loginUser(user)
+    },
     render(){
         return (
             <Card style={{
@@ -27,14 +30,14 @@ class Login extends React.Component {
               }}>
                 
                 <TextField
-                  hintText="Email" />
+                  hintText={this.state.email || "Email"} />
                 <TextField
-                  hintText="Password" />
+                  hintText={this.state.password || "Password"} />
               </CardText>
 
               <RaisedButton style={{
                 display: 'block',
-              }} onClick={this.onClick.bind(this)}
+              }} onClick={this.loginUser}
               label="Log in" primary={true} />
               <RaisedButton style={{
                 display: 'block',
@@ -44,7 +47,6 @@ class Login extends React.Component {
 
         );
     }
-}
-
+})
 
 export default Login;

@@ -1,6 +1,8 @@
 import React from 'react';
 import ThingsList from './ThingsList';
 import ThingForm from './ThingForm';
+import APIHelper from '../helpers/APIHelper';
+import toastr from 'toastr';
 
 var initialThings = []
 
@@ -88,13 +90,8 @@ var ThingLogic = React.createClass({
         <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.state.things} />
         <ThingForm addThing={this.addThing} />
       </div>
-      )
+    )
    }
-
 })
-
-
-
-
 
 export default ThingLogic;
