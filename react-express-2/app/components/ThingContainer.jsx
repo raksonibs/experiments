@@ -3,90 +3,29 @@ import ThingsList from './ThingsList';
 import ThingForm from './ThingForm';
 import APIHelper from '../helpers/APIHelper';
 import toastr from 'toastr';
-
-var initialThings = []
+import Login from './Login';
+import Signup from './Signup';
+import ThingLogic from './ThingLogic';
 
 var ThingContainer = React.createClass({
   getInitialState: function() {
-    return {things: initialThings}
-  },
-  addThing: function(thing) {
-    initialThings.push(thing)
+    return {user: null}
+ },
 
-    APIHelper.post('api/things', thing)
-      .then(function(data) {
-      console.log(data)      
-    })
-
-    this.setState({things: initialThings})
-
-    toastr.success('Author Created!')
-  },
-  updateThing: function(thing) {
-    var index
-    initialThings.filter(function(_thing, _index){
-      if (_thing.name == thing.name) {
-        index = _index
-      }
-    })
-
-    let thingList = initialThings[index]
-    if (thingList.loved === 'false') {
-      thingList.loved = 'true'
-    } else {      
-      thingList.loved = 'false'
-    }
-
-    this.setState({things: initialThings})
-    let thingId = thing._id
-    let url = 'api/things/' + thingId
-    APIHelper.update(url)
-      .then(function(data) {
-        console.log('update!')
-      })
-    toastr.success('Author Updated!')
-  },
-  deleteThing: function(thing) {    
-    var index
-    initialThings.filter(function(_thing, _index){
-      if (_thing.name == thing.name) {
-        index = _index
-      }
-    })
-
-    initialThings.splice(index, 1)
-
-    this.setState({things: initialThings})
-    let thingId = thing._id
-    let url = 'api/things/' + thingId
-    APIHelper.delete(url)
-      .then(function(data) {
-        console.log('deleted!')
-      })
-    toastr.success('Author Deleted!')
-  },
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object,
-  },
-
-  componentWillMount: function() {
-    let component = this
-
-    APIHelper.get("api/things")
-      .then(function(data) {
-        component.setState({
-          things: data
-        })
-        initialThings = data
-    })
+  loginUser: function() {
+    this.setState({user: true})
   },
     render() {
+      let view;
+      if (this.state.user) {
+            view = <ThingLogic />
+          } else {
+            view = <Login />
+          }
+
       return (
         <div>
-          <h1>Things I like!</h1>
-          <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.state.things} />
-          <ThingForm addThing={this.addThing} />
+          {view}
         </div>
     );
   }
