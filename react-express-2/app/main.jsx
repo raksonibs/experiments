@@ -15,15 +15,17 @@ import ThingsList from './components/ThingsList';
 import ThingForm from './components/ThingForm';
 import Cats from './components/Cats';
 import Login from './components/Login';
- 
+import Signup from './components/Signup';
 
 var AppBar = mui.AppBar;
 
 var initialThings = []
 
+var users = {email: 'oskar@fake.com'}
+
 var App = React.createClass({
   getInitialState: function() {
-    return {things: initialThings, muiTheme: ThemeManager.getMuiTheme(LightRawTheme),}
+    return {things: initialThings, muiTheme: ThemeManager.getMuiTheme(LightRawTheme), user: null}
  },
  addThing: function(thing) {
    initialThings.push(thing)
@@ -111,10 +113,11 @@ var App = React.createClass({
         } else {
           view = <Login />
         }
+
     return (
       <div>
         <AppBarConst />
-        {{view}}
+        {view}
         {this.props.children}
       </div>
 
@@ -130,6 +133,7 @@ let routes = (
             <Route path="things" component={Index}/>
             <Route path="cats" component={Cats}/>
             <Route path="login" component={Login} />
+            <Route path="signup" component={Signup} />
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>

@@ -10,7 +10,7 @@ var {
 } = mui;
 
 
-class Login extends React.Component {
+class Signup extends React.Component {
     onClick() {
       // need to set user up!
       
@@ -25,7 +25,6 @@ class Login extends React.Component {
               <CardText style={{
                 'textAlign': 'center'
               }}>
-                
                 <TextField
                   hintText="Email" />
                 <TextField
@@ -35,11 +34,11 @@ class Login extends React.Component {
               <RaisedButton style={{
                 display: 'block',
               }} onClick={this.onClick.bind(this)}
-              label="Log in" primary={true} />
+              label="Sign up" primary={true} />
               <RaisedButton style={{
                 display: 'block',
                 background: 'lightblue'
-              }}><Link to={'/signup}'}>or Signup</Link></RaisedButton>
+              }}><Link to={'/login}'}>or Login</Link></RaisedButton>
             </Card>
 
         );
@@ -47,4 +46,4 @@ class Login extends React.Component {
 }
 
 
-export default Login;
+export default Signup;
