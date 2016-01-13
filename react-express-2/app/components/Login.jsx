@@ -1,7 +1,7 @@
 import React from 'react';
 import mui from 'material-ui';
 import TextField from 'material-ui/lib/text-field';
-import { Link } from 'react-router'
+import { Link, Router } from 'react-router'
 import toastr from 'toastr';
 import APIHelper from '../helpers/APIHelper';
 var injectTapEventPlugin = require("react-tap-event-plugin");
@@ -13,14 +13,32 @@ var {
     RaisedButton
 } = mui;
 
+var loggedInUser = null;
+
 var Login = React.createClass({
     getInitialState: function() {
-      return {email: '', password: ''}
+      return {email: '', password: '', user: this.props.user || loggedInUser}
     },
     loginUser: function(e) {
       e.preventDefault();
       let user = { email: this.state.email, password: this.state.password }
-      this.props.loginUser(user)
+      if (this.props.loginUser === undefined) {
+        APIHelper.login(user)
+          .then({
+            if (error) {
+              toastr.error('Login Unsuccessful!')
+            } else {
+              toastr.success('Login Successful!')
+              loggedInUser = user;
+              this.setState({user: loggedInUser})              
+            }
+
+          })
+        // need to redirect
+        Router.transitionTo('things')
+      } else {        
+        this.props.loginUser(user)
+      }
     },
     render(){
         return (

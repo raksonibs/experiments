@@ -9,15 +9,29 @@ var {
     RaisedButton
 } = mui;
 
+var loggedInUser = null;
 
 var Signup = React.createClass({
     getInitialState: function() {
-      return {email: '', password: ''}
+      return {email: '', password: '', user: loggedInUser}
     },
     SignUpUser: function(e) {
       e.preventDefault();
       let user = { email: this.state.email, password: this.state.password }
-      this.props.signUpUser(user)
+      if (this.props.loginUser === undefined) {
+        APIHelper.signup(user)
+          .then({
+            if (error) {
+              toastr.error('Signup Unsuccessful!')
+            } else {
+              toastr.success('Signup Successful!')
+              loggedInUser = user;
+              this.setState({user: loggedInUser})              
+            }
+
+          })
+        // need to redirect
+        Router.transitionTo('things')
     },
     render(){
         return (

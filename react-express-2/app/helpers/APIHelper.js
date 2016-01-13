@@ -44,5 +44,27 @@ module.exports = {
         error: error
       })
     })
+  },
+  signup: function(url, data) {
+    return new Promise(function(success, error) {
+      $.ajax({
+        url: url,
+        method: "POST",
+        dataType: "json",
+        success: success,
+        error: error
+      })
+    })
+  },
+  login: function(url, data) {
+    return new Promise(function(success, error) {
+      $.ajax({
+        url: url,
+        method: "POST",
+        dataType: "json",
+        success: success,
+        error: error
+      })
+    })
   }
 }
