@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var mongoose = require('mongoose');
 var passport = require('passport');
 var session  = require('express-session');
 var User = require('./models/User.js');
@@ -24,7 +23,14 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/../.tmp"))
 app.listen(7777);
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({
+    secret: 'cookie_secret',
+    name: 'cookie_name',
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -54,6 +60,18 @@ if (app.get('env') === 'development') {
             email: "kacper", 
             password: '456' 
           }]
+
+        var things = [{
+          name: 'cat',
+          loved: true
+        }, {
+          name: 'dogs', 
+          loved: true
+        },
+        {
+          name: 'ants',
+          loved: false
+        }]
       
         users.forEach(function(user) {
           new User(user).save()
