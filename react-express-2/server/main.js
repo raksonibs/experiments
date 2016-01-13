@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash    = require('connect-flash');
 var session  = require('express-session');
 var User = require('./models/User.js');
 
@@ -25,9 +24,14 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/../.tmp"))
 app.listen(7777);
 
-// app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+require('./routes/index')(app, passport);
 
 require('./routes/things.js')(app);
 

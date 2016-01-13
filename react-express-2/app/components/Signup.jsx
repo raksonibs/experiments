@@ -37,7 +37,7 @@ var Signup = React.createClass({
 
               <Link to={'/login'}><RaisedButton style={{
                 display: 'block',
-              }} onClick={this.SignUpUser.bind(this)}
+              }} onClick={this.SignUpUser}
               label="Sign up" primary={true} />
               <RaisedButton style={{
                 display: 'block',
