@@ -1,34 +1,63 @@
+var express = require('express');
+var router = express.Router();
+var User = require('../models/User');
+
 module.exports = function(app, passport) {
-               
-    app.get('/', function(req, res) {        
+app.get('/login', function(req, res) {
+})
+app.get('/signup', function(req, res) {
+})
+
+app.route('/api/users')
+.get(function(req,res) {
+    console.log('using this route')
+    User.find({}, function(err, users) {
+    if (err) return next(err)
+    
+    res.send(users);  
+  });
+  })
+.post(function(req, res) {
+  var user = new User({
+    name: req.body.name,
+    loved: false
+  })
+
+  user.save(function(err) {
+    if (err) return next(err)
+
+    res.status(300).send()
+  })
+})
+
+app.route('/api/users/:id')
+  .delete(function(req, res) {
+    User.findOne({
+      _id: req.params.id
+    }).remove(function(x) {
+      
     });
-                    
-    app.get('/login', function(req, res) {
-         
-        res.render('login.ejs', { message: req.flash('loginMessage') }); 
-    });
-          
-                    
-    app.get('/signup', function(req, res) {
-         
-        res.render('signup.ejs', { message: req.flash('signupMessage') });
-    });
-          
-                         
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {            });
-    });
-               
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-};
- 
-function isLoggedIn(req, res, next) {
-     
-    if (req.isAuthenticated())
-        return next();
-     
-    res.redirect('/');
+  })
+  .patch(function(req, res) {
+    console.log('test')
+    User.findOne({
+      _id: req.params.id
+    }, function(error, user) {
+      if (error || user === undefined) {
+         res.status(500).send()
+      } else {
+
+        if (user.loved === 'true') {        
+          user.loved = false 
+        } else {
+          user.loved = true
+        }
+
+
+        user.save()
+        res.status(200).send()
+      }
+    })
+  })
+
 }

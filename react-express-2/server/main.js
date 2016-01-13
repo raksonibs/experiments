@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var session  = require('express-session');
+var User = require('./models/User.js');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -40,8 +41,19 @@ if (app.get('env') === 'development') {
     console.log("connecting to local db");
     var db = "mongodb://localhost/myapp";
     mongoose.connect(db, function() {
-        // console.log("dropping local db to renew");
-        // mongoose.connection.db.dropDatabase();
+        console.log("dropping local db to renew");
+        mongoose.connection.db.dropDatabase();
+        var users = [{
+            email: "oskar",
+            password: '123'
+          }, { 
+            email: "kacper", 
+            password: '456' 
+          }]
+      
+        users.forEach(function(user) {
+          new User(user).save()
+        })
     })   
 } else {
     console.log("connecting to prod db");
