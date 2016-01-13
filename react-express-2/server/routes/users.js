@@ -1,63 +1,39 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(app, passport) {
-app.get('/login', function(req, res) {
-})
-app.get('/signup', function(req, res) {
-})
-
-app.route('/api/users')
-.get(function(req,res) {
-    console.log('using this route')
-    User.find({}, function(err, users) {
-    if (err) return next(err)
-    
-    res.send(users);  
-  });
-  })
-.post(function(req, res) {
-  var user = new User({
-    name: req.body.name,
-    loved: false
-  })
-
-  user.save(function(err) {
-    if (err) return next(err)
-
-    res.status(300).send()
-  })
-})
-
-app.route('/api/users/:id')
-  .delete(function(req, res) {
-    User.findOne({
-      _id: req.params.id
-    }).remove(function(x) {
-      
-    });
-  })
-  .patch(function(req, res) {
-    console.log('test')
-    User.findOne({
-      _id: req.params.id
-    }, function(error, user) {
-      if (error || user === undefined) {
-         res.status(500).send()
-      } else {
-
-        if (user.loved === 'true') {        
-          user.loved = false 
-        } else {
-          user.loved = true
+app.post('/login', function(req, res) {
+  console.log(req.body.email)
+  console.log(req.body.user)
+  console.log(req.body)
+  User.findOne({ 'email' :  req.body.email }, 
+    function(err, user) {
+        // In case of any error, return using the done method
+        if (err)
+            res.status(400).send()
+        // email does not exist, log the error and redirect back
+        if (!user){
+            console.log('User Not Found with email '+req.body.email);
+            res.status(400).send()               
         }
-
-
-        user.save()
+        // User exists but wrong password, log the error 
+        if (!isValidPassword(user, req.body.password)){
+            console.log('Invalid Password');
+            res.status(400).send()
+        }
+        // User and password both match, return user from done method
+        // which will be treated like success
         res.status(200).send()
-      }
-    })
-  })
+    }
+);
+})
+app.post('/signup', function(req, res) {
+})
+
+  var isValidPassword = function(user, password){
+        return bCrypt.compareSync(password, user.password);
+    }
 
 }

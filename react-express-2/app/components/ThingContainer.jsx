@@ -15,9 +15,17 @@ var ThingContainer = React.createClass({
  },
 
   loginUser: function(user) {
-    toastr.success('Login Successful!')
-    loggedInUser = user;
-    this.setState({user: loggedInUser})
+    APIHelper.login('/login', user)
+      .then(function(data) {
+        debugger
+        if (data) {
+          toastr.error('Login Unsuccessful!')
+        } else {
+          toastr.success('Login Successful!')
+          loggedInUser = user;
+          this.setState({user: loggedInUser})              
+        }
+      })
   },
     render() {
       let view;

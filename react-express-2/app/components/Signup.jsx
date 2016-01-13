@@ -19,17 +19,7 @@ var Signup = React.createClass({
       e.preventDefault();
       let user = { email: this.state.email, password: this.state.password }
       if (this.props.loginUser === undefined) {
-        APIHelper.signup(user)
-          .then({
-            if (error) {
-              toastr.error('Signup Unsuccessful!')
-            } else {
-              toastr.success('Signup Successful!')
-              loggedInUser = user;
-              this.setState({user: loggedInUser})              
-            }
-
-          })
+        }
         // need to redirect
         Router.transitionTo('things')
     },

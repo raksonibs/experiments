@@ -23,16 +23,14 @@ var Login = React.createClass({
       e.preventDefault();
       let user = { email: this.state.email, password: this.state.password }
       if (this.props.loginUser === undefined) {
-        APIHelper.login(user)
-          .then({
-            if (error) {
-              toastr.error('Login Unsuccessful!')
-            } else {
-              toastr.success('Login Successful!')
-              loggedInUser = user;
-              this.setState({user: loggedInUser})              
-            }
-
+        APIHelper.login('/login', user)
+          .then(function(data) {            
+            toastr.success('Login Successful!')
+            loggedInUser = user;
+            this.setState({user: loggedInUser})
+          })
+          .error(function(data) {
+            toastr.error('Login Unsuccessful!')
           })
         // need to redirect
         Router.transitionTo('things')

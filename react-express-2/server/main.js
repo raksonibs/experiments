@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session  = require('express-session');
 var User = require('./models/User.js');
+var Thing = require('./models/Thing.js');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -37,7 +38,7 @@ app.use(passport.session());
 var initPassport = require('./passport/init');
 initPassport(passport);
 
-require('./routes/index')(app, passport);
+require('./routes/users.js')(app, passport);
 
 require('./routes/things.js')(app);
 
@@ -76,6 +77,14 @@ if (app.get('env') === 'development') {
         users.forEach(function(user) {
           new User(user).save()
         })
+
+        console.log("Created Users")
+
+        things.forEach(function(thing) {
+          new Thing(thing).save()
+        })
+
+        console.log("Created Things")
     })   
 } else {
     console.log("connecting to prod db");
