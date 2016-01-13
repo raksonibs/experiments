@@ -2,6 +2,8 @@ import React from 'react';
 import mui from 'material-ui';
 import TextField from 'material-ui/lib/text-field';
 import { Link } from 'react-router'
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 var {
     Card,
@@ -39,10 +41,10 @@ var Login = React.createClass({
                 display: 'block',
               }} onClick={this.loginUser}
               label="Log in" primary={true} />
-              <RaisedButton style={{
+              <Link to={'/signup'}><RaisedButton style={{
                 display: 'block',
                 background: 'lightblue'
-              }}><Link to={'/signup}'}>or Signup</Link></RaisedButton>
+              }}>or Signup</RaisedButton></Link>
             </Card>
 
         );

@@ -7,6 +7,8 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import AppBarConst from '../common/AppBarIconMenu';
 import {RouteHandler} from 'react-router';
 import Index from '../components/ThingContainer.jsx'
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 var App = React.createClass({
   getInitialState: function() {

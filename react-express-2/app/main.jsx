@@ -12,6 +12,8 @@ import Cats from './components/Cats';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import App from './components/App';
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 var AppBar = mui.AppBar;
 

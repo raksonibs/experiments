@@ -17,7 +17,7 @@ var Signup = React.createClass({
     SignUpUser: function(e) {
       e.preventDefault();
       let user = { email: this.state.email, password: this.state.password }
-      this.props.loginUser(user)
+      this.props.signUpUser(user)
     },
     render(){
         return (
@@ -35,14 +35,14 @@ var Signup = React.createClass({
                   hintText="Password" />
               </CardText>
 
-              <RaisedButton style={{
+              <Link to={'/login'}><RaisedButton style={{
                 display: 'block',
-              }} onClick={this.onClick.bind(this)}
+              }} onClick={this.SignUpUser.bind(this)}
               label="Sign up" primary={true} />
               <RaisedButton style={{
                 display: 'block',
                 background: 'lightblue'
-              }}><Link to={'/login}'}>or Login</Link></RaisedButton>
+              }}>or Login</RaisedButton></Link>
             </Card>
 
         );
