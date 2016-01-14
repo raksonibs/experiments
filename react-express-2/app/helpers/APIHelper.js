@@ -50,6 +50,7 @@ module.exports = {
       $.ajax({
         url: url,
         method: "POST",
+        data: data,
         dataType: "json",
         success: success,
         error: error
@@ -61,6 +62,7 @@ module.exports = {
       $.ajax({
         url: url,
         method: "POST",
+        data: data,
         dataType: "json",
         success: success,
         error: error

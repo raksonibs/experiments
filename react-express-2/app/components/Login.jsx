@@ -2,6 +2,7 @@ import React from 'react';
 import mui from 'material-ui';
 import TextField from 'material-ui/lib/text-field';
 import { Link, Router } from 'react-router'
+import { History } from 'history'
 import toastr from 'toastr';
 import APIHelper from '../helpers/APIHelper';
 var injectTapEventPlugin = require("react-tap-event-plugin");
@@ -16,27 +17,39 @@ var {
 var loggedInUser = null;
 
 var Login = React.createClass({
+    mixins : [History],
+
     getInitialState: function() {
       return {email: '', password: '', user: this.props.user || loggedInUser}
     },
+    handleInputEmail: function(e) {
+      this.setState({email: e.target.value})
+    },
+    handleInputPassword: function(e) {
+      this.setState({password: e.target.value})
+    },
     loginUser: function(e) {
       e.preventDefault();
+      let component = this
       let user = { email: this.state.email, password: this.state.password }
       if (this.props.loginUser === undefined) {
         APIHelper.login('/login', user)
-          .then(function(data) {            
-            toastr.success('Login Successful!')
-            loggedInUser = user;
-            this.setState({user: loggedInUser})
+          .then(function(data) {                       
           })
-          .error(function(data) {
-            toastr.error('Login Unsuccessful!')
+          .catch(function(data) {
+            if (data.status === 200) {
+              toastr.success('Login Successful!')              
+              loggedInUser = user;              
+              component.setState({user: loggedInUser})              
+            } else {              
+              toastr.error('Login Unsuccessful!')
+            }
           })
-        // need to redirect
-        Router.transitionTo('things')
       } else {        
         this.props.loginUser(user)
       }
+
+      this.history.pushState(null, '/things');
     },
     render(){
         return (
@@ -50,9 +63,9 @@ var Login = React.createClass({
               }}>
                 
                 <TextField
-                  hintText={this.state.email || "Email"} />
+                  hintText={this.state.email || "Email"} onChange={this.handleInputEmail} />
                 <TextField
-                  hintText={this.state.password || "Password"} />
+                  hintText={this.state.password || "Password"} onChange={this.handleInputPassword} />
               </CardText>
 
               <RaisedButton style={{

@@ -1,7 +1,10 @@
 import React from 'react';
 import mui from 'material-ui';
 import TextField from 'material-ui/lib/text-field';
-import { Link } from 'react-router'
+import { Link, Router } from 'react-router'
+import { History } from 'history'
+import APIHelper from '../helpers/APIHelper';
+import toastr from 'toastr';
 
 var {
     Card,
@@ -12,16 +15,29 @@ var {
 var loggedInUser = null;
 
 var Signup = React.createClass({
+    mixins : [History],
+
     getInitialState: function() {
       return {email: '', password: '', user: loggedInUser}
     },
     SignUpUser: function(e) {
       e.preventDefault();
+      let component = this
       let user = { email: this.state.email, password: this.state.password }
-      if (this.props.loginUser === undefined) {
-        }
-        // need to redirect
-        Router.transitionTo('things')
+      APIHelper.login('/signup', user)
+        .then(function(data) {                       
+        })
+        .catch(function(data) {
+          if (data.status === 200) {
+            toastr.success('Login Successful!')              
+            loggedInUser = user;              
+            component.setState({user: loggedInUser})              
+          } else {              
+            toastr.error('Login Unsuccessful!')
+          }
+        })
+      
+      this.history.pushState(null, '/things');
     },
     render(){
         return (

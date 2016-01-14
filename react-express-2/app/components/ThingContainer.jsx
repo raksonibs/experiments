@@ -6,24 +6,27 @@ import toastr from 'toastr';
 import Login from './Login';
 import Signup from './Signup';
 import ThingLogic from './ThingLogic';
+import { Link, Router } from 'react-router'
 
 var loggedInUser = null;
 
 var ThingContainer = React.createClass({
+  mixins : [Router.Navigation],
+
   getInitialState: function() {
     return {user: loggedInUser}
  },
 
   loginUser: function(user) {
     APIHelper.login('/login', user)
-      .then(function(data) {
-        debugger
-        if (data) {
-          toastr.error('Login Unsuccessful!')
-        } else {
+      .catch(function(data) {
+        if (data.status === 200) {
           toastr.success('Login Successful!')
           loggedInUser = user;
-          this.setState({user: loggedInUser})              
+          this.setState({user: loggedInUser})
+          this.transitionTo('things')
+        } else {              
+          toastr.error('Login Unsuccessful!')
         }
       })
   },
