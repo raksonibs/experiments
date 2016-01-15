@@ -3,60 +3,56 @@ var helper = require('./../helpers/APIHelper.js');
 import _ from 'lodash';
 
 class ThingStore {
-  var things = [];
   constructor() {
     this.state = {
       user: null,
-      things: null
+      things: [],
+      listeners: []
     };
   }
 
-
-  helper.get("api/things")
-  .then(function(data) {
-    things = data;
-    triggerListeners();
-  })
-
-  var listeners = [];
-
   function getThings() {
-    return things;
-  }
+    helper.get("api/things")
+    .then(function(data) {
+      this.state.things = data;
+      triggerListeners();
+    })
+    return this.state.things;
+  },
 
-  function onChange(listener) {
-    listeners.push(listener);
-  }
+  onChange: function(listener) {
+    this.state.listeners.push(listener);
+  },
 
-  function deleteThing(thing) {
+  deleteThing: function(thing) {
     var index 
-    things.filter(function(_thing, _index){
+    this.state.things.filter(function(_thing, _index){
       if (_thing.name == thing.name) {
         index = _index
       }
     })
 
-    things.splice(index, 1);
+    this.state.things.splice(index, 1);
     triggerListeners();
 
     // confirmation before the server 
 
-    helper.del("api/things/" + thing._id);
+    helper.delete("api/things/" + thing._id);
 
-  }
+  },
 
-  function addThing(thing) {
-    things.push(thing)
+  addThing: function(thing) {
+    this.state.things.push(thing)
     triggerListeners()
 
     helper.post('api/things', thing)
       .then(function(data) {
       console.log(data)      
     })
-  }
+  },
 
-  function setThingTruth(thing, isLoved) {
-    var _thing = things.filter(function(a) {return a.name == thing.name})[0]
+  setThingTruth: function(thing, isLoved) {
+    var _thing = this.state.things.filter(function(a) {return a.name == thing.name})[0]
     console.log(thing)
     console.log(thing.loved)
     if (thing.loved === 'true') {        
@@ -69,22 +65,22 @@ class ThingStore {
     triggerListeners()
 
     helper.patch("api/things/", thing._id, thing);
-  }
+  },
 
-  function changeThing(thing) {
-    var _thing = things.filter(function(a) {return a.name == thing.name})[0]
+  changeThing: function(thing) {
+    var _thing = this.state.things.filter(function(a) {return a.name == thing.name})[0]
     thing.loved = isLoved || false;
-  }
+  },
 
-  function triggerListeners() {
-    listeners.forEach(function(listener) {
-      listener(things)
+  triggerListeners: function() {
+    this.state.listeners.forEach(function(listener) {
+      listener(this.state.things)
     })
-  }
+  },
 
-  function login(user) {
+  login: function(user) {
     this.setState({user: user});
-  }
+  },
 
   dispatcher.register(function(event) {
     var split = event.type.split(':');

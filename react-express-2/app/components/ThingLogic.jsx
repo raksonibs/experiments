@@ -3,7 +3,7 @@ import ThingsList from './ThingsList';
 import ThingForm from './ThingForm';
 import APIHelper from '../helpers/APIHelper';
 import toastr from 'toastr';
-import ThingStorefrom '../stores/ThingStore.jsx';
+import ThingStore from '../stores/ThingStore.jsx';
 import ThingActionCreator from '../actions/ThingActionCreator'
 
 let initialThings = ThingStore.getThings();
