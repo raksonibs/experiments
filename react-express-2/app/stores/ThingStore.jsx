@@ -4,14 +4,15 @@ import _ from 'lodash';
 
 function ThingStore() {
   var things = []
+  helper.get("api/things")
+  .then(function(data) {
+    things = data;
+    triggerListeners();
+  })
+  
   var listeners = []
 
   function getThings() {
-    helper.get("api/things")
-    .then(function(data) {
-      things = data;
-      triggerListeners();
-    })
     return things;
   }
 

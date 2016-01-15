@@ -31,6 +31,10 @@ var ThingLogic = React.createClass({
     toastr.success('Author Deleted!')
   },
 
+  componentDidMount: function() {
+    this.setState({things: initialThings})
+  },
+
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
@@ -45,8 +49,13 @@ var ThingLogic = React.createClass({
    }
 })
 
+function render() {  
+  // need to somehow make the component wait until callback has data, or load data in beginning
+}
+
 ThingStore.onChange(function(things) {
   initialThings = things;
+  render();
 })
 
 export default ThingLogic;
