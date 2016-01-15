@@ -1,4 +1,4 @@
-var dispatcher = require('./../dispatcher/dispatcher.js');
+var dispatcher = require('./../dispatcher/appDispatcher.js');
 
 module.exports = {
   login:function(user) {

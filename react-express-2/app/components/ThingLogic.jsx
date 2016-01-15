@@ -45,4 +45,8 @@ var ThingLogic = React.createClass({
    }
 })
 
+ThingStore.onChange(function(things) {
+  initialThings = things;
+})
+
 export default ThingLogic;

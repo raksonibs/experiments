@@ -12,7 +12,7 @@ function render() {
 }
 
 groceryItemStore.onChange(function(items) {
-  initial= items;
+  initial = items;
   render()
 })
 

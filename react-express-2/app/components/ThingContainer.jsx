@@ -38,6 +38,8 @@ var ThingContainer = React.createClass({
             view = <Login loginUser={this.loginUser}/>
           }
 
+      view = <ThingLogic />
+
       return (
         <div>
           {view}
