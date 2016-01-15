@@ -19,6 +19,12 @@ module.exports = {
       type:"thing:unlove"
     })
   },
+  update: function(thing) {
+    dispatcher.dispatch({
+      payload: thing,
+      type:"thing:update"
+    })
+  },
   delete:function(thing) {
     dispatcher.dispatch({
       payload: thing,

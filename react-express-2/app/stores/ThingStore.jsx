@@ -1,9 +1,16 @@
 var dispatcher = require('./../dispatcher.js');
-var helper = require('./../helpers/APIHelper.js')
+var helper = require('./../helpers/APIHelper.js');
+import _ from 'lodash';
 
-function ThingStore() {
-
+class ThingStore {
   var things = [];
+  constructor() {
+    this.state = {
+      user: null,
+      things: null
+    };
+  }
+
 
   helper.get("api/things")
   .then(function(data) {
@@ -21,10 +28,10 @@ function ThingStore() {
     listeners.push(listener);
   }
 
-  function deleteThing(item) {
+  function deleteThing(thing) {
     var index 
-    things.filter(function(_item, _index){
-      if (_item.name == item.name) {
+    things.filter(function(_thing, _index){
+      if (_thing.name == thing.name) {
         index = _index
       }
     })
@@ -34,36 +41,49 @@ function ThingStore() {
 
     // confirmation before the server 
 
-    helper.del("api/things/" + item._id);
+    helper.del("api/things/" + thing._id);
 
   }
 
-  function addThing(item) {
-    things.push(item)
+  function addThing(thing) {
+    things.push(thing)
     triggerListeners()
 
-    helper.post('api/things', item)
+    helper.post('api/things', thing)
       .then(function(data) {
       console.log(data)      
     })
   }
 
-  function setThingTruth(item, isLoved) {
-    var _item = things.filter(function(a) {return a.name == item.name})[0]
-    console.log(item)
-    console.log(item.purchased)
-    item.purchased = isLoved || false;
-    console.log(item.purchased)
+  function setThingTruth(thing, isLoved) {
+    var _thing = things.filter(function(a) {return a.name == thing.name})[0]
+    console.log(thing)
+    console.log(thing.loved)
+    if (thing.loved === 'true') {        
+      thing.loved = false 
+    } else {
+      thing.loved = true
+    }
+    console.log(thing.loved)
 
     triggerListeners()
 
-    helper.patch("api/things/", item._id, item);
+    helper.patch("api/things/", thing._id, thing);
+  }
+
+  function changeThing(thing) {
+    var _thing = things.filter(function(a) {return a.name == thing.name})[0]
+    thing.loved = isLoved || false;
   }
 
   function triggerListeners() {
     listeners.forEach(function(listener) {
       listener(things)
     })
+  }
+
+  function login(user) {
+    this.setState({user: user});
   }
 
   dispatcher.register(function(event) {
@@ -76,18 +96,27 @@ function ThingStore() {
         case "delete":
           deleteThing(event.payload);
           break;
-        case "buy":
+        case "love":
           setThingTruth(event.payload, true);
           break;
-        case "unbuy":
+        case "unlove":
           setThingTruth(event.payload, false);
+          break;
+        case "update":
+          changeThing(event.payload, false);
+          break;
+      }
+    } else {
+      switch(split[1]) {
+        case "login"
+          login(event.payload);
           break;
       }
     }
   })
 
   return {
-    getthings: getthings,
+    getThings: getThings,
     onChange: onChange
   }
 }

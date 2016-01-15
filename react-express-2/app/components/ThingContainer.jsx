@@ -8,7 +8,7 @@ import Signup from './Signup';
 import ThingLogic from './ThingLogic';
 import { Link, Router } from 'react-router'
 
-var loggedInUser = null;
+let loggedInUser = null;
 
 var ThingContainer = React.createClass({
   mixins : [Router.Navigation],

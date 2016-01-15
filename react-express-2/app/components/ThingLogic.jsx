@@ -3,85 +3,36 @@ import ThingsList from './ThingsList';
 import ThingForm from './ThingForm';
 import APIHelper from '../helpers/APIHelper';
 import toastr from 'toastr';
+import ThingStorefrom '../stores/ThingStore.jsx';
+import ThingActionCreator from '../actions/ThingActionCreator'
 
-var initialThings = []
+let initialThings = ThingStore.getThings();
+
+ThingStore.onChange(function(things) {
+  initialThings = things;
+})
 
 var ThingLogic = React.createClass({
   getInitialState: function() {
     return {things: initialThings, user: null}
  },
   addThing: function(thing) {
-   initialThings.push(thing)
-
-   APIHelper.post('api/things', thing)
-     .then(function(data) {
-     console.log(data)      
-   })
-
-   this.setState({things: initialThings})
-
+   ThingActionCreator.add(thing)   
    toastr.success('Author Created!')
   },
 
   updateThing: function(thing) {
-    var index
-    initialThings.filter(function(_thing, _index){
-      if (_thing.name == thing.name) {
-        index = _index
-      }
-    })
-
-    let thingList = initialThings[index]
-    if (thingList.loved === 'false') {
-      thingList.loved = 'true'
-    } else {      
-      thingList.loved = 'false'
-    }
-
-   this.setState({things: initialThings})
-   let thingId = thing._id
-   let url = 'api/things/' + thingId
-   APIHelper.update(url)
-     .then(function(data) {
-       console.log('update!')
-     })
+   ThingActionCreator.updateThing(thing);
    toastr.success('Author Updated!')
  },
 
  deleteThing: function(thing) {    
-   var index
-   initialThings.filter(function(_thing, _index){
-     if (_thing.name == thing.name) {
-       index = _index
-     }
-   })
-
-    initialThings.splice(index, 1)
-
-    this.setState({things: initialThings})
-    let thingId = thing._id
-    let url = 'api/things/' + thingId
-    APIHelper.delete(url)
-      .then(function(data) {
-        console.log('deleted!')
-      })
+    ThingActionCreator.delete(thing);
     toastr.success('Author Deleted!')
   },
 
   childContextTypes: {
     muiTheme: React.PropTypes.object,
-  },
-
-  componentWillMount: function() {
-    let component = this
-
-    APIHelper.get("api/things")
-      .then(function(data) {
-        component.setState({
-          things: data
-        })
-        initialThings = data
-    })
   },
    render() {
     return (
