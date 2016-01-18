@@ -8,7 +8,6 @@ import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 import Colors from 'material-ui/lib/styles/colors';
 import AppBarConst from './common/AppBarIconMenu';
 import APIHelper from './helpers/APIHelper';
-import Cats from './components/Cats';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import App from './components/App';
@@ -26,7 +25,6 @@ let routes = (
         <Route path="/" component={App}>
             <IndexRoute component={Index}/>
             <Route path="things" component={Index}/>
-            <Route path="cats" component={Cats}/>
             <Route path="login" component={Login} />
             <Route path="signup" component={Signup} />
             <Route path="*" component={NotFound}/>
