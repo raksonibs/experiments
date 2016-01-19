@@ -7,6 +7,15 @@ import Login from './Login';
 import Signup from './Signup';
 import ThingLogic from './ThingLogic';
 import { Link, Router } from 'react-router'
+import ThingStore from '../stores/ThingStore'
+
+let initialThings = []
+
+initialThings = ThingStore.getThings();
+
+ThingStore.onChange(function(things) {
+  initialThings = things;
+})
 
 let loggedInUser = null;
 
@@ -33,13 +42,11 @@ var ThingContainer = React.createClass({
     render() {
       let view;
       if (this.state.user) {
-            view = <ThingLogic />
+            view = <ThingLogic things={initialThings}/>
           } else {
-            view = <Login loginUser={this.loginUser}/>
+            view = <Login loginUser={this.loginUser} things={initialThings}/>
           }
-
-      view = <ThingLogic />
-
+      view = <ThingLogic things={initialThings}/>
       return (
         <div>
           {view}

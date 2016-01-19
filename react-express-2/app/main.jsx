@@ -16,8 +16,6 @@ injectTapEventPlugin();
 
 var AppBar = mui.AppBar;
 
-var initialThings = []
-
 var users = {email: 'oskar@fake.com'}
 
 let routes = (

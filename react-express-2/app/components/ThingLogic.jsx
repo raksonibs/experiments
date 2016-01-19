@@ -6,16 +6,17 @@ import toastr from 'toastr';
 import ThingStore from '../stores/ThingStore.jsx';
 import ThingActionCreator from '../actions/ThingActionCreator'
 
-let initialThings = ThingStore.getThings();
-
-ThingStore.onChange(function(things) {
-  initialThings = things;
-})
+// ThingStore.onChange(function(things) {
+//   initialThings = things;
+// })
 
 var ThingLogic = React.createClass({
-  getInitialState: function() {
-    return {things: initialThings, user: null}
- },
+  getInitialState: function() { 
+    return {things: this.props.initialThings, user: null}
+  },
+  resetThings: function() {
+    this.setState({things: this.props.initialThings})    
+  },
   addThing: function(thing) {
    ThingActionCreator.add(thing)   
    toastr.success('Author Created!')
@@ -32,7 +33,7 @@ var ThingLogic = React.createClass({
   },
 
   componentDidMount: function() {
-    this.setState({things: initialThings})
+    this.setState({things: this.props.initialThings})
   },
 
   childContextTypes: {
@@ -42,7 +43,7 @@ var ThingLogic = React.createClass({
     return (
       <div>
         <h1>Things I like!</h1>
-        <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.state.things} />
+        <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.props.things} />
         <ThingForm addThing={this.addThing} />
       </div>
     )

@@ -4,13 +4,17 @@ import _ from 'lodash';
 
 function ThingStore() {
   var things = []
-  helper.get("api/things")
-  .then(function(data) {
-    things = data;
-    triggerListeners();
-  })
-  
   var listeners = []
+
+  function loadThings() {
+    helper.get("api/things")
+    .then(function(data) {
+      debugger
+      things = data;
+      triggerListeners();
+      return things
+    })
+  }
 
   function getThings() {
     return things;
@@ -78,6 +82,8 @@ function ThingStore() {
     this.setState({user: user});
   }
 
+  loadThings()
+
   dispatcher.register(function(event) {
     var split = event.type.split(':');
     if (split[0] == 'thing') {
@@ -109,7 +115,8 @@ function ThingStore() {
 
   return {
     getThings: getThings,
-    onChange: onChange
+    onChange: onChange,
+    loadThings: loadThings
   }
 }
 
