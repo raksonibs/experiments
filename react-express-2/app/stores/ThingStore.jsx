@@ -9,7 +9,6 @@ function ThingStore() {
   function loadThings() {
     helper.get("api/things")
     .then(function(data) {
-      debugger
       things = data;
       triggerListeners();
       return things

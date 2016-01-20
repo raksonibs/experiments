@@ -6,16 +6,19 @@ import toastr from 'toastr';
 import ThingStore from '../stores/ThingStore.jsx';
 import ThingActionCreator from '../actions/ThingActionCreator'
 
-// ThingStore.onChange(function(things) {
-//   initialThings = things;
-// })
+let initialThings = []
 
 var ThingLogic = React.createClass({
-  getInitialState: function() { 
-    return {things: this.props.initialThings, user: null}
-  },
   resetThings: function() {
-    this.setState({things: this.props.initialThings})    
+    this.setState({things: initialThings})    
+  },
+  getInitialState: function() {
+    let component = this
+    ThingStore.onChange(function(thingsSent) {
+      initialThings = thingsSent;      
+      component.setState({things: initialThings})
+    })
+    return {things: initialThings, user: null}
   },
   addThing: function(thing) {
    ThingActionCreator.add(thing)   
@@ -33,30 +36,26 @@ var ThingLogic = React.createClass({
   },
 
   componentDidMount: function() {
-    this.setState({things: this.props.initialThings})
+    this.setState({things: initialThings})
   },
 
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
-   render() {
+
+  forcedUpdate: function() {
+    this.forceUpdate()
+  },
+  
+  render() {
     return (
       <div>
         <h1>Things I like!</h1>
-        <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.props.things} />
+        <ThingsList update={this.updateThing} delete={this.deleteThing} things={this.state.things} />
         <ThingForm addThing={this.addThing} />
       </div>
     )
    }
-})
-
-function render() {  
-  // need to somehow make the component wait until callback has data, or load data in beginning
-}
-
-ThingStore.onChange(function(things) {
-  initialThings = things;
-  render();
 })
 
 export default ThingLogic;
