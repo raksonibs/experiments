@@ -9,15 +9,10 @@ var passport = require('passport');
 var session  = require('express-session');
 var User = require('./models/User.js');
 var Thing = require('./models/Thing.js');
-
-require("node-jsx").install({
-  harmony: true,
-  extension: ".jsx"
-});
+var ReactDOMServer = require('react-dom/server')
+require('babel-core/register');
 
 var React = require("react")
-
-var App = React.createFactory(require("../app/components/App.jsx"));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -51,12 +46,13 @@ require('./routes/users.js')(app, passport);
 
 require('./routes/things.js')(app);
 
-
 app.get('/', function(req, res) {
     // virtual instance and serialize it
-    var markup = React.renderToString(
-      App()
-    );
+    GLOBAL.navigator = {
+        userAgent: req.headers['user-agent']
+    }
+    var application = React.createFactory(require("../app/components/App.jsx"));
+    var markup = ReactDOMServer.renderToString(application({}));
     res.render('./../app/index.ejs', {markup: markup})
 })
 
