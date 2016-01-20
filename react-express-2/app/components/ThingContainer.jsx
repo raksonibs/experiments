@@ -8,6 +8,7 @@ import Signup from './Signup';
 import ThingLogic from './ThingLogic';
 import { Link, Router } from 'react-router'
 import ThingStore from '../stores/ThingStore'
+import AppBarConst from '../common/AppBarIconMenu';
 
 let initialThings = []
 
@@ -49,6 +50,7 @@ var ThingContainer = React.createClass({
       view = <ThingLogic things={initialThings}/>
       return (
         <div>
+          <AppBarConst />
           {view}
         </div>
     );

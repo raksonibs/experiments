@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 
 const AppBarIconMenu = () => (
   <AppBar
-    title="Title"
+    title="Things We Like"
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={
       <IconMenu

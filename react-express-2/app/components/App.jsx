@@ -10,19 +10,16 @@ import Index from '../components/ThingContainer.jsx'
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
-var App = React.createClass({
+module.exports = React.createClass({
   getInitialState: function() {
     return {muiTheme: ThemeManager.getMuiTheme(LightRawTheme)}
- },
+  },
 
-  render() {
+  render: function() {
     return (
       <div>
-        <AppBarConst />
         {this.props.children}
       </div>
     )
   }
 })
-
-export default App;

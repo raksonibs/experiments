@@ -5,6 +5,7 @@ import { Link, Router } from 'react-router'
 import { History } from 'history'
 import toastr from 'toastr';
 import APIHelper from '../helpers/APIHelper';
+import AppBarConst from '../common/AppBarIconMenu';
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
@@ -53,30 +54,33 @@ var Login = React.createClass({
     },
     render(){
         return (
-            <Card style={{
-              'maxWidth': '800px',
-              'margin': '30px auto',
-              'padding': '50px'
-            }}>
-              <CardText style={{
-                'textAlign': 'center'
+            <div>
+              <AppBarConst />
+              <Card style={{
+                'maxWidth': '800px',
+                'margin': '30px auto',
+                'padding': '50px'
               }}>
-                
-                <TextField
-                  hintText={this.state.email || "Email"} onChange={this.handleInputEmail} />
-                <TextField
-                  hintText={this.state.password || "Password"} onChange={this.handleInputPassword} />
-              </CardText>
+                <CardText style={{
+                  'textAlign': 'center'
+                }}>
+                  
+                  <TextField
+                    hintText={this.state.email || "Email"} onChange={this.handleInputEmail} />
+                  <TextField
+                    hintText={this.state.password || "Password"} onChange={this.handleInputPassword} />
+                </CardText>
 
-              <RaisedButton style={{
-                display: 'block',
-              }} onClick={this.loginUser}
-              label="Log in" primary={true} />
-              <Link to={'/signup'}><RaisedButton style={{
-                display: 'block',
-                background: 'lightblue'
-              }}>or Signup</RaisedButton></Link>
-            </Card>
+                <RaisedButton style={{
+                  display: 'block',
+                }} onClick={this.loginUser}
+                label="Log in" primary={true} />
+                <Link to={'/signup'}><RaisedButton style={{
+                  display: 'block',
+                  background: 'lightblue'
+                }}>or Signup</RaisedButton></Link>
+              </Card>
+            </div>
 
         );
     }

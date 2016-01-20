@@ -5,7 +5,7 @@ import { Link, Router } from 'react-router'
 import { History } from 'history'
 import APIHelper from '../helpers/APIHelper';
 import toastr from 'toastr';
-
+import AppBarConst from '../common/AppBarIconMenu';
 var {
     Card,
     CardText,
@@ -41,29 +41,32 @@ var Signup = React.createClass({
     },
     render(){
         return (
-            <Card style={{
-              'maxWidth': '800px',
-              'margin': '30px auto',
-              'padding': '50px'
-            }}>
-              <CardText style={{
-                'textAlign': 'center'
+            <div>
+              <AppBarConst />
+              <Card style={{
+                'maxWidth': '800px',
+                'margin': '30px auto',
+                'padding': '50px'
               }}>
-                <TextField
-                  hintText="Email" />
-                <TextField
-                  hintText="Password" />
-              </CardText>
+                <CardText style={{
+                  'textAlign': 'center'
+                }}>
+                  <TextField
+                    hintText="Email" />
+                  <TextField
+                    hintText="Password" />
+                </CardText>
 
-              <Link to={'/login'}><RaisedButton style={{
-                display: 'block',
-              }} onClick={this.SignUpUser}
-              label="Sign up" primary={true} />
-              <RaisedButton style={{
-                display: 'block',
-                background: 'lightblue'
-              }}>or Login</RaisedButton></Link>
-            </Card>
+                <Link to={'/login'}><RaisedButton style={{
+                  display: 'block',
+                }} onClick={this.SignUpUser}
+                label="Sign up" primary={true} />
+                <RaisedButton style={{
+                  display: 'block',
+                  background: 'lightblue'
+                }}>or Login</RaisedButton></Link>
+              </Card>
+            </div>
 
         );
     }
