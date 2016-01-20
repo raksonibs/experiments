@@ -10,6 +10,15 @@ var session  = require('express-session');
 var User = require('./models/User.js');
 var Thing = require('./models/Thing.js');
 
+require("node-jsx").install({
+  harmony: true,
+  extension: ".jsx"
+});
+
+var React = require("react")
+
+var App = React.createFactory(require("../app/components/App.jsx"));
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -45,7 +54,10 @@ require('./routes/things.js')(app);
 
 app.get('/', function(req, res) {
     // virtual instance and serialize it
-    res.render('./../app/index.ejs', {})
+    var markup = React.renderToString(
+      App()
+    );
+    res.render('./../app/index.ejs', {markup: markup})
 })
 
 if (app.get('env') === 'development') {

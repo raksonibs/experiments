@@ -30,5 +30,10 @@ let routes = (
     </Router>
 );
 
+if (typeof window !== "undefined") {
+  window.onload = function() {
+    React.render(<Router>{routes}</Router>, document.getElementById('app'));
+  }
+}
 
-React.render(<Router>{routes}</Router>, document.getElementById('app'));
+
