@@ -1,14 +1,14 @@
 {
   "name": "react-express-2",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "5.4.1",
+    "npm": "2.11.2"
+  },
   "scripts": {
     "build": "gulp",
     "start": "node server/main.js"
-  },
-  "engines": {
-    "node": "0.12.5",
-    "npm": "2.11.2"
   },
   "dependencies": {
     "babel": "^6.3.26",
