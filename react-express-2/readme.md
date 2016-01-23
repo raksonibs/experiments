@@ -1,25 +1,8 @@
-express --ejs
-
-sudo npm install --save gulp gulp-live-server jquery react reactify vinyl-source-stream guid connect-mongo browserify browser-sync babel
-
-mongo setup -> check app.js
-
-setup some json we can grab -> seed file and mongo model with json routes
-
--> try curl requests run server
-curl localhost:3000/api/things
-curl -d "name=silly" localhost:3000/api/things
-$ curl localhost:3000/api/things
-node .bin/www
-
-great, we have our basic foundation. now gulp and make work with react!
-
-
-
-gulp->
-
-follow gulpfile and explain
--> server changes with files from setup express
--> other changes to directory sturcture
--> explain changes in the server file now
-webpack
+gulp default setup
+To run your app on iOS:
+   Open react-express-2/ThingNative/ios/ThingNative.xcodeproj in Xcode
+   Hit the Run button
+To run your app on Android:
+   Have an Android emulator running (quickest way to get started), or a device connected
+   cd react-express-2/ThingNative
+   react-native run-android
