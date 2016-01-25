@@ -1,16 +1,16 @@
-import React from 'react';
-import APIHelper from '../helpers/APIHelper'
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
+'use strict'
 
-module.exports = React.createClass({
-  getInitialState: function() {
-    return {input: ""};
-  },
-  handleInputName: function(e) {
-    this.setState({input : e.target.value})
-  },
-  addThing: function(e) {
+let React = require('react-native');
+let { StyleSheet, Image, TextInput } = React;
+var Dimensions = require('Dimensions');
+
+class ThingForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { input: this.props.text};
+  }
+
+  addThing() {
     e.preventDefault();
     let thing = {name: this.state.input, loved: 'false'}
     this.props.addThing(thing)
@@ -18,13 +18,28 @@ module.exports = React.createClass({
     this.setState({
       input: ''
     })
-  },
-  render: function() {
+  }
+
+  render() {
     return (
-      <div className='things--add'>
-          <TextField hintText={this.state.input || "Add a new One"} onChange={this.handleInputName}/>
-          <RaisedButton secondary={true} onClick={this.addThing} label="Add Thing"/>
-      </div>
+      <TextInput
+        style={styles.image}
+        onChangeText={(text) => this.setState({text})}
+        value={this.props.text}
+      />
     )
   }
+}
+
+let screenHeight = Dimensions.get('window').height;
+
+let styles = StyleSheet.create({
+  image: {
+    width: screenHeight * 0.35,
+    height: screenHeight * 0.35,
+    borderColor: 'gray', 
+    borderWidth: 1
+  }
 })
+
+module.exports = ThingForm;

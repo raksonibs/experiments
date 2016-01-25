@@ -9,69 +9,63 @@ var {
 
 var Dimensions = require('Dimensions');
 
-var Pizza              = require('./Pizza');
+var ThingForm             = require('./ThingForm');
+var ThingList             = require('./ThingList');
 var CuttingInstruction = require('./CuttingInstruction');
 var PeopleCountPicker  = require('./PeopleCountPicker');
+var APIHelper = require('./APIHelper')
+
+var REQUEST_URL = 'http://localhost:3000/api/v1/today';
 
 class TestNative extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { peopleCount: 4, text: "Input something here!"};
-    this.setPeopleCount = this.setPeopleCount.bind(this);
-    this.cuttingEdges = this.cuttingEdges.bind(this);
+    this.state = { things: [], text: "Input thing here!"};
+    // bind thingform
   }
 
-  setPeopleCount(peopleCount) {
-    this.setState({ peopleCount: peopleCount });
+  componentDidMount() {
+    this.fetchData()
   }
 
-  cuttingEdges() {
-    return this.state.peopleCount * 2;
+  fetchData() {
+    fetch(REQUEST_URL)
+    .then((response) => response.json())
+    .then((responseData) => {
+        this.setState({
+            things: responseData.events
+        });
+    })
+    .done();
   }
 
   render() {
     return (
       <View style={styles.app}>
-        <TextInput
-          style={styles.inputText}
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-        />
+        {this.thingform()}
         <Text> {this.state.text} </Text>
       </View>
     );
   }
 
-  pizza() {
-    return (
-      <View style={styles.pizza}>
-        <Pizza cuttingEdges={this.cuttingEdges()} />
-      </View>
-    );
+  addThing(thing) {
+
   }
 
-  cuttingInstruction() {
-    return (
-      <View style={styles.cuttingInstruction}>
-        <CuttingInstruction
-          cuttingEdges={this.cuttingEdges()}
-          peopleCount={this.state.peopleCount}
-        />
+  things() {
+    return  (
+      <View style={styles.things}>
+        <ThingList things={this.state.things} />
       </View>
-    );
+    )
   }
 
-  peoplePicker() {
+  thingform() {
     return (
-      <View style={styles.peoplePickerWrapper}>
-        <View style={styles.peoplePicker}>
-          <PeopleCountPicker
-            peopleCount={this.state.peopleCount}
-            setPeopleCount={this.setPeopleCount}
-          />
-        </View>
+      <View style={styles.thingform}>
+        <ThingForm text={this.state.text} addThing={this.addThing}/>
       </View>
-    );
+    )
   }
 }
 
@@ -82,32 +76,23 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#C41D47',
   },
-  pizza: {
-    alignSelf: 'center',
-    marginTop: 40
-  },
   inputText: {
     alignSelf: 'center',
     marginTop: 40,
     width: screenHeight * 0.35,
-    height: screenHeight * 0.35,
+    height: screenHeight * 0.1,
     borderColor: 'gray', 
-    borderWidth: 1
+    borderWidth: 1,
   },
-  cuttingInstruction: {
+  thingform: {
+    alignSelf: 'center',
+    marginTop: 40
+  },
+  things: {
     alignSelf: 'center',
     padding: 20,
     paddingTop: 0
   },
-  peoplePickerWrapper: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  peoplePicker: {
-    height: 95,
-    overflow: 'hidden',
-    justifyContent: 'flex-end',
-  }
 });
 
 AppRegistry.registerComponent('TestNative', () => TestNative);
