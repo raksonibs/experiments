@@ -21,7 +21,6 @@ class TestNative extends React.Component {
   constructor(props) {
     super(props);
     this.state = { things: [], text: "Input thing here!"};
-    // bind thingform
   }
 
   componentDidMount() {
@@ -42,8 +41,8 @@ class TestNative extends React.Component {
   render() {
     return (
       <View style={styles.app}>
-        {this.thingform()}
         <Text> {this.state.text} </Text>
+        {this.things()}
       </View>
     );
   }

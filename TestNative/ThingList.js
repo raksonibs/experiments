@@ -1,16 +1,16 @@
-import React from 'react';
+var React = require('react-native');
 import Thing from './Thing'
 
-var ThingsList = React.createClass({
+class ThingList extends React.Component {
     render() {
       return (
-        <div className="list">
+        <View className="list">
          {this.props.things.map((thing, i) => {
             return <Thing delete={this.props.delete} update={this.props.update} thing={thing} key={i} />
           })}
-       </div>
+       </View>
     );
   }
-})
+}
 
-export default ThingsList;
+export default ThingList;
