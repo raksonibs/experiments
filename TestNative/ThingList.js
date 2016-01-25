@@ -1,5 +1,8 @@
 var React = require('react-native');
 import Thing from './Thing'
+var {
+  View
+} = React;
 
 class ThingList extends React.Component {
     render() {
@@ -13,4 +16,4 @@ class ThingList extends React.Component {
   }
 }
 
-export default ThingList;
+module.exports = ThingList;

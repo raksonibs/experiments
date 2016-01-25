@@ -3,7 +3,10 @@ var React = require('react-native');
 var {
   Platform,
   TouchableHighlight,
-  TouchableNativeFeedback 
+  TouchableNativeFeedback,
+  View,
+  Text,
+  TouchableElement
 } = React;
 
 class Thing extends React.Component {
@@ -16,28 +19,13 @@ class Thing extends React.Component {
   render() {
         return (
           <View className="list-item">
-            
             <Text>
-               Could be loved. Right now it is {this.props.thing.loved}
+              {this.props.thing.name}
             </Text>
-            <View>
-              <TouchableElement              
-                onPress={this.makeLoved.bind(this)}>
-                <View>
-                  <Text>Make Loved!</Text>
-                </View>
-              </TouchableElement>
-              <TouchableElement              
-                onPress={this.delete.bind(this)}>
-                <View>
-                  <Text>Delete!</Text>
-                </View>
-              </TouchableElement>                
-            </View>
           </View>
         );
     }
 }
 
-export default Thing;
+module.exports = Thing;
 
