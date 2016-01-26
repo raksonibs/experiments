@@ -1,13 +1,19 @@
 var React = require('react-native');
 
+
+
 var {
   Platform,
   TouchableHighlight,
   TouchableNativeFeedback,
   View,
   Text,
-  TouchableElement
+  TouchableElement,
+  StyleSheet,
+  Dimensions
 } = React;
+
+let screenHeight = Dimensions.get('window').height;
 
 class Thing extends React.Component {
   makeLoved() {
@@ -18,14 +24,26 @@ class Thing extends React.Component {
   }
   render() {
         return (
-          <View className="list-item">
+          <View style={styles.thing}>
             <Text>
               {this.props.thing.name}
-            </Text>
+            </Text>            
           </View>
         );
     }
 }
+
+var styles = StyleSheet.create({
+  thing: {
+    alignSelf: 'center',
+    padding: 20,
+    paddingTop: 0,
+    width: screenHeight * 0.5,
+    height: screenHeight * 0.1,
+    borderColor: 'gray', 
+    borderWidth: 1
+  },
+});
 
 module.exports = Thing;
 

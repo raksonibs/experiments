@@ -4,15 +4,14 @@ var {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  Image
 } = React;
 
 var Dimensions = require('Dimensions');
 
 var ThingForm             = require('./ThingForm');
 var ThingList             = require('./ThingList');
-var CuttingInstruction = require('./CuttingInstruction');
-var PeopleCountPicker  = require('./PeopleCountPicker');
 var APIHelper = require('./APIHelper')
 
 var REQUEST_URL = 'http://localhost:3000/api/v1/today';
@@ -20,7 +19,7 @@ var REQUEST_URL = 'http://localhost:3000/api/v1/today';
 class TestNative extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { things: [], text: "Input thing here!"};
+    this.state = { things: [], text: "Input new thing here!"};
   }
 
   componentDidMount() {
@@ -41,7 +40,8 @@ class TestNative extends React.Component {
   render() {
     return (
       <View style={styles.app}>
-        <Text> {this.state.text} </Text>
+        <Image source={require('image!pizza')} style={styles.image} />
+        {this.thingform()}        
         {this.things()}
       </View>
     );
@@ -73,15 +73,20 @@ let screenHeight = Dimensions.get('window').height;
 var styles = StyleSheet.create({
   app: {
     flex: 1,
-    backgroundColor: '#C41D47',
+    backgroundColor: '#C41D47'
   },
   inputText: {
     alignSelf: 'center',
     marginTop: 40,
-    width: screenHeight * 0.35,
-    height: screenHeight * 0.1,
+    width: screenHeight * 0.05,
+    height: screenHeight * 0.05,
     borderColor: 'gray', 
-    borderWidth: 1,
+    borderWidth: 1
+  },
+  image: {
+    width: screenHeight * 0.2,
+    height: screenHeight * 0.2,
+    alignSelf: 'center',
   },
   thingform: {
     alignSelf: 'center',
