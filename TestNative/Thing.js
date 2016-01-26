@@ -1,7 +1,5 @@
 var React = require('react-native');
 
-
-
 var {
   Platform,
   TouchableHighlight,

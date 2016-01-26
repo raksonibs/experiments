@@ -48,7 +48,7 @@ class TestNative extends React.Component {
   }
 
   addThing(thing) {
-
+    // post url
   }
 
   things() {

@@ -1,37 +1,49 @@
 'use strict'
 
 let React = require('react-native');
-let { StyleSheet, Image, TextInput } = React;
+let { StyleSheet, Image, TextInput, TouchableHighlight, View, Text } = React;
 var Dimensions = require('Dimensions');
 
 class ThingForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { input: this.props.text};
+    this.state = { input: this.props.text, text: this.props.text};
   }
 
   addThing() {
-    e.preventDefault();
     let thing = {name: this.state.input, loved: 'false'}
     this.props.addThing(thing)
 
     this.setState({
-      input: ''
+      input: '',
+      text: ''
     })
   }
 
   render() {
     return (
-      <TextInput
-        style={styles.image}
-        onChangeText={(text) => this.setState({text})}
-        value={this.props.text}
-      />
+      <View>
+        <TextInput
+          style={styles.image}
+          onChangeText={(text) => this.setState({input: text})}        
+        />
+
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor='#ccc'
+            onPress={this.addThing}
+          >
+            <Text style={styles.buttonText}>Add Thing!</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     )
   }
 }
 
 let screenHeight = Dimensions.get('window').height;
+var windowSize = Dimensions.get('window');
 
 let styles = StyleSheet.create({
   image: {
@@ -39,7 +51,22 @@ let styles = StyleSheet.create({
     height: screenHeight * 0.35,
     borderColor: 'gray', 
     borderWidth: 1
-  }
+  },
+  buttonContainer: {
+    bottom: 0,
+    flex: .1,
+    width: windowSize.width,
+    backgroundColor: '#eee',
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 30,
+    color: '#666666',
+  },
 })
 
 module.exports = ThingForm;
