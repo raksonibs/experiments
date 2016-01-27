@@ -48,7 +48,16 @@ class TestNative extends React.Component {
   }
 
   addThing(thing) {
-    // post url
+    fetch('http://localhost:3000/api/v1/event_today', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: thing.name
+      })
+    })
   }
 
   things() {

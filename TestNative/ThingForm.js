@@ -7,11 +7,11 @@ var Dimensions = require('Dimensions');
 class ThingForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { input: this.props.text, text: this.props.text};
+    this.state = { input: this.props.text || '', text: this.props.text || ''};
   }
 
   addThing() {
-    let thing = {name: this.state.input, loved: 'false'}
+    let thing = {name: this.state.text, loved: 'false'}
     this.props.addThing(thing)
 
     this.setState({
@@ -25,7 +25,8 @@ class ThingForm extends React.Component {
       <View>
         <TextInput
           style={styles.image}
-          onChangeText={(text) => this.setState({input: text})}        
+          value={this.state.text}
+          onChange={(event) => this.setState({text: event.nativeEvent.text})}
         />
 
         <View style={styles.buttonContainer}>
