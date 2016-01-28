@@ -33,7 +33,7 @@ class ThingForm extends React.Component {
           <TouchableHighlight
             style={styles.button}
             underlayColor='#ccc'
-            onPress={this.addThing}
+            onPress={this.addThing.bind(this)}
           >
             <Text style={styles.buttonText}>Add Thing!</Text>
           </TouchableHighlight>

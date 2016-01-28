@@ -5,7 +5,8 @@ var {
   Text,
   View,
   TextInput,
-  Image
+  Image,
+  ScrollView
 } = React;
 
 var Dimensions = require('Dimensions');
@@ -16,10 +17,14 @@ var APIHelper = require('./APIHelper')
 
 var REQUEST_URL = 'http://localhost:3000/api/v1/today';
 
+let things = [];
+let component;
+
 class TestNative extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { things: [], text: "Input new thing here!"};
+    this.state = { things: things, text: "Input new thing here!"};
+    component = this;
   }
 
   componentDidMount() {
@@ -30,8 +35,9 @@ class TestNative extends React.Component {
     fetch(REQUEST_URL)
     .then((response) => response.json())
     .then((responseData) => {
+        things = responseData.events
         this.setState({
-            things: responseData.events
+            things: things
         });
     })
     .done();
@@ -48,7 +54,7 @@ class TestNative extends React.Component {
   }
 
   addThing(thing) {
-    fetch('http://localhost:3000/api/v1/event_today', {
+    fetch('http://localhost:3000/api/v1/create_today', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -58,13 +64,26 @@ class TestNative extends React.Component {
         name: thing.name
       })
     })
+    .then((response) => response.json())
+    .then((responseData) => {      
+        things.unshift(responseData)
+        component.setState({
+            things: things
+        });
+    })
+    .done();
+
   }
 
   things() {
     return  (
-      <View style={styles.things}>
+      <ScrollView automaticallyAdjustContentInsets={false}
+        onScroll={() => { console.log('onScroll!'); }}
+        scrollEventThrottle={200}
+        style={styles.scrollView}
+        >
         <ThingList things={this.state.things} />
-      </View>
+      </ScrollView>
     )
   }
 
@@ -106,6 +125,13 @@ var styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0
   },
+  scrollView: {
+    backgroundColor: '#6A85B1',
+    height: 300,
+  },
+  horizontalScrollView: {
+    height: 120,
+  }
 });
 
 AppRegistry.registerComponent('TestNative', () => TestNative);

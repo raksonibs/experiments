@@ -1,13 +1,15 @@
 var React = require('react-native');
 import Thing from './Thing'
 var {
+  ScrollView,
+  StyleSheet,
   View
 } = React;
 
 class ThingList extends React.Component {
     render() {
       return (
-        <View className="list">
+        <View>
          {this.props.things.map((thing, i) => {
             return <Thing delete={this.props.delete} update={this.props.update} thing={thing} key={i} />
           })}
@@ -15,5 +17,15 @@ class ThingList extends React.Component {
     );
   }
 }
+
+var styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: '#6A85B1',
+    height: 300,
+  },
+  horizontalScrollView: {
+    height: 120,
+  }
+})
 
 module.exports = ThingList;
