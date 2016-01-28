@@ -48,8 +48,9 @@ var windowSize = Dimensions.get('window');
 
 let styles = StyleSheet.create({
   image: {
-    width: screenHeight * 0.35,
-    height: screenHeight * 0.35,
+    alignSelf: 'center',
+    width: screenHeight*0.5,
+    height: screenHeight * 0.1,
     borderColor: 'gray', 
     borderWidth: 1
   },

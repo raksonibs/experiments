@@ -118,7 +118,6 @@ var styles = StyleSheet.create({
   },
   thingform: {
     alignSelf: 'center',
-    marginTop: 40
   },
   things: {
     alignSelf: 'center',

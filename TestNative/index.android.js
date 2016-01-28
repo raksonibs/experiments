@@ -1,51 +1,137 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
-import React, {
+var React = require('react-native');
+var {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  TextInput,
+  Image,
+  ScrollView
+} = React;
 
-class TestNative extends Component {
+var Dimensions = require('Dimensions');
+
+var ThingForm             = require('./ThingForm');
+var ThingList             = require('./ThingList');
+var APIHelper = require('./APIHelper')
+
+var REQUEST_URL = 'http://localhost:3000/api/v1/today';
+
+let things = [];
+let component;
+
+class TestNative extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { things: things, text: "Input new thing here!"};
+    component = this;
+  }
+
+  componentDidMount() {
+    this.fetchData()
+  }
+
+  fetchData() {
+    fetch(REQUEST_URL)
+    .then((response) => response.json())
+    .then((responseData) => {
+        things = responseData.events
+        this.setState({
+            things: things
+        });
+    })
+    .done();
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+      <View style={styles.app}>
+        <Image source={require('image!pizza')} style={styles.image} />
+        {this.thingform()}        
+        {this.things()}
       </View>
     );
   }
+
+  addThing(thing) {
+    fetch('http://localhost:3000/api/v1/create_today', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: thing.name
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {      
+        things.unshift(responseData)
+        component.setState({
+            things: things
+        });
+    })
+    .done();
+
+  }
+
+  things() {
+    return  (
+      <ScrollView automaticallyAdjustContentInsets={false}
+        onScroll={() => { console.log('onScroll!'); }}
+        scrollEventThrottle={200}
+        style={styles.scrollView}
+        >
+        <ThingList things={this.state.things} />
+      </ScrollView>
+    )
+  }
+
+  thingform() {
+    return (
+      <View style={styles.thingform}>
+        <ThingForm text={this.state.text} addThing={this.addThing}/>
+      </View>
+    )
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
+let screenHeight = Dimensions.get('window').height;
+
+var styles = StyleSheet.create({
+  app: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#C41D47'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  inputText: {
+    alignSelf: 'center',
+    marginTop: 40,
+    width: screenHeight * 0.05,
+    height: screenHeight * 0.05,
+    borderColor: 'gray', 
+    borderWidth: 1
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  image: {
+    width: screenHeight * 0.2,
+    height: screenHeight * 0.2,
+    alignSelf: 'center',
   },
+  thingform: {
+    alignSelf: 'center',
+    marginTop: 40
+  },
+  things: {
+    alignSelf: 'center',
+    padding: 20,
+    paddingTop: 0
+  },
+  scrollView: {
+    backgroundColor: '#6A85B1',
+    height: 300,
+  },
+  horizontalScrollView: {
+    height: 120,
+  }
 });
 
 AppRegistry.registerComponent('TestNative', () => TestNative);
