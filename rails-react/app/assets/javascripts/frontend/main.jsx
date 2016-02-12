@@ -1,26 +1,26 @@
-import TweetActions from "../actions";
-import Index from "../components/Index";
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Follow from "../components/Follow"
+var TweetActions = require("../actions/TweetActions")
+var Index = require("../components/Index")
+var React = require('react')
+var ReactDOM = require('react-dom')
+var Follow = require("../components/Follow")
 
-import { Router, Route, Link } from 'react-router'
-import { history } from 'react-router/lib/HashHistory'
+var { Router, Route, Link } = require( 'react-router')
+var { history } = require( 'react-router/lib/HashHistory')
 
 class App extends React.Component {
   render() {
-    return {
+    return (
       <div>
         {this.props.children}
       </div>
-    }
+    )
   }
 }
 // react routing takes over!
 let documentReady = () => {
   ReactDOM.render(
-    <Router history={history}?
-      <Route compontent={App}/>
+    <Router history={history} >
+      <Route compontent={App} >
         <Route path="/" component={Index} />
         <Route path="follow" component={Follow} />
       </Route>
