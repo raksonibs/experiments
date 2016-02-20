@@ -42,7 +42,7 @@
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"weatherApp"
+                                                      moduleName:@"WeatherProject"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
 
