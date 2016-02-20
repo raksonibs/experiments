@@ -12,21 +12,45 @@ var WeatherProject = React.createClass({
   getInitialState() {
     return ({ 
       zip: '',
-      forecast: {
-        main: 'Clouds',
-        description: 'few clouds',
-        temp: 45.7
-      }
+      forecast: null
     });
   },
 
   _handleTextChange(event) {
+    let zip =  event.nativeEvent.text
     this.setState({
-      zip: event.nativeEvent.text
+      zip: zip
     }); 
+
+    let string = 'http://api.openweathermap.org/data/2.5/weather?q='+zip+'&APPID=5cc3c4d3c6d5565b53abb4ba17ba595c'
+
+    console.log(string)
+
+    fetch(string)
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      this.setState({
+        forecast: {
+          main: responseJSON.weather[0].main,
+          description: responseJSON.weather[0].description,
+          temp: responseJSON.main.temp,
+        }
+      })
+    })
+    .catch((error) => {
+      console.warn(error)
+    })
   },
 
   render() { 
+    var content = null;
+
+    if (this.state.forecast !== null) {
+      content = <Forecast
+                  main={this.state.forecast.main}
+                  description={this.state.forecast.description}
+                  temp={this.state.forecast.temp} />
+    }
     return (
       <View style={styles.container}>
          <Image source={require('./img/flowers.jpg')}
@@ -44,10 +68,7 @@ var WeatherProject = React.createClass({
                   onSubmitEditing={this._handleTextChange}/>
                </View>
              </View>
-          <Forecast
-            main={this.state.forecast.main} 
-            description={this.state.forecast.description} 
-            temp={this.state.forecast.temp}/>
+         {content}
         </View>
       </Image>
     </View>
