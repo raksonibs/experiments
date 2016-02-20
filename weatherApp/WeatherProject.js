@@ -8,6 +8,42 @@ var React = require('react-native'); var {
 
 var Forecast = require('./Forecast');
 
+var styles = StyleSheet.create({ bold: {
+      fontWeight: "bold"
+  },
+  italic: {
+      fontStyle: "italic"
+} });
+
+var Strong = React.createClass({ 
+  render: function() {
+    return (
+      <Text style={styles.bold}>
+        {this.props.children} 
+      </Text>
+    );
+  } 
+});
+
+var Em = React.createClass({ 
+  render: function() {
+    return (
+      <Text style={styles.italic}>
+        {this.props.children} 
+      </Text>
+    );
+  } 
+});
+
+// <Text>
+//   The quick <Em>brown</Em> fox jumped
+//   over the lazy <Strong>dog</Strong>.
+// </Text>
+// <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+//            style={{width: 400, height: 400}} />
+
+
+
 var WeatherProject = React.createClass({
   getInitialState() {
     return ({ 
@@ -61,6 +97,7 @@ var WeatherProject = React.createClass({
                <Text style={styles.mainText}>
                    Current weather for 
                 </Text>
+
                <View style={styles.zipContainer}>
                  <TextInput
                   style={[styles.zipCode, styles.mainText]} 
