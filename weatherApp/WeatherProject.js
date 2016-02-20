@@ -29,7 +29,7 @@ var WeatherProject = React.createClass({
   render() { 
     return (
       <View style={styles.container}>
-         <Image source={require('image!flowers')}
+         <Image source={require('./img/flowers.jpg')}
              resizeMode='cover'
              style={styles.backdrop}>
            <View style={styles.overlay}>
@@ -50,14 +50,14 @@ var WeatherProject = React.createClass({
             temp={this.state.forecast.temp}/>
         </View>
       </Image>
-    <View>
+    </View>
     ); 
   }
 });
 
 var baseFontSize = 16
 
-var styles = StyleSheet.create({ 
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -97,5 +97,6 @@ var styles = StyleSheet.create({
     color: '#FFFFFF'
   }
 });
+
 
 module.exports = WeatherProject;
