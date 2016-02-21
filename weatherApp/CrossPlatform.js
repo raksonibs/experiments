@@ -25,6 +25,10 @@ render: function() {
   ); 
   }
 });
+// conditional styling if button touched
+// [styles.button, this.state.touching && styles.highlight]
+// this.props.sryle override default props if necessary
+// <Text style={[myStyles.text, this.props.style]}>
 var styles = StyleSheet.create({ container: {
   flex: 1,
     justifyContent: 'center',
