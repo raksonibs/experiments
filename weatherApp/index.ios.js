@@ -4,6 +4,6 @@ import React, {
   AppRegistry,
 } from 'react-native';
 
-var WeatherProject = require('./PanResponder');
+var WeatherProject = require('./BookList');
 
 AppRegistry.registerComponent('WeatherProject', () => WeatherProject);
