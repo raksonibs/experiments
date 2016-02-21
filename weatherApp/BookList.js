@@ -64,6 +64,8 @@ var BookList = React.createClass({
                     author={rowData.author}/>;
  },
 
+ //ios tab bar pretty nice for footers on listview
+
   render() {   
     return (
      <ListView

@@ -1,9 +1,4 @@
-'use strict';
-
-import React, {
-  AppRegistry,
-} from 'react-native';
-
-var WeatherProject = require('./BookList');
-
-AppRegistry.registerComponent('WeatherProject', () => WeatherProject);
+var React = require('react-native');
+var { AppRegistry } = React;
+var CrossPlatform = require('./CrossPlatform');
+AppRegistry.registerComponent('CrossPlatform', () => CrossPlatform);
