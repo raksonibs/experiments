@@ -35,6 +35,9 @@ var Em = React.createClass({
   } 
 });
 
+var WEATHER_API_KEY = 'bbeb34ebf60ad50f7893e7440a1e2b0b';
+var API_STEM = 'http://api.openweathermap.org/data/2.5/weather?';
+
 // <Text>
 //   The quick <Em>brown</Em> fox jumped
 //   over the lazy <Strong>dog</Strong>.
@@ -42,7 +45,33 @@ var Em = React.createClass({
 // <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
 //            style={{width: 400, height: 400}} />
 
+var Button = require('./Button')
 
+var LocationButton = React.createClass({
+  propTypes: {
+    onGetCoords: React.PropTyps.func.isRequired
+  },
+
+  _onPress: function() {
+    navigator.geolocation.getCurrentPosition(
+      (initialPosition) => {
+        this.props.onGetCoords(initialPosition.coords.latitude,
+            initialPosition.coords.longitutde)
+      },
+      (error) => {alert(error.message)},
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    )
+  },
+
+  render: function() {
+    return (
+      <Button label="Use Current Location"
+        style={styles.locationButton}
+        onPress={this._onPress}
+      >
+    )
+  }
+})
 
 var WeatherProject = React.createClass({
   getInitialState() {
@@ -51,6 +80,33 @@ var WeatherProject = React.createClass({
       forecast: null
     });
   },
+
+  _getForecastForZip: function(zip) { 
+    this._getForecast(
+    `${API_STEM}q=${zip}&units=imperial&APPID=${WEATHER_API_KEY}`);
+  },
+
+  _getForecastForCoords: function(lat, lon) { 
+    this._getForecast(
+      `${API_STEM}lat=${lat}&lon=${lon}&units=imperial&APPID=${WEATHER_API_KEY}`);
+  },
+
+  _getForecast: function(url, cb) { 
+    fetch(url)
+    .then((response) => response.json())
+    .then((responseJSON) => {
+    console.log(responseJSON); this.setState({
+            forecast: {
+              main: responseJSON.weather[0].main,
+              description: responseJSON.weather[0].description,
+              temp: responseJSON.main.temp
+           } 
+      });
+    })
+    .catch((error) => {
+        console.warn(error);
+      });
+    }
 
   _handleTextChange(event) {
     let zip =  event.nativeEvent.text
@@ -99,10 +155,11 @@ var WeatherProject = React.createClass({
                 </Text>
 
                <View style={styles.zipContainer}>
-                 <TextInput
-                  style={[styles.zipCode, styles.mainText]} 
-                  returnKeyType='go' 
-                  onSubmitEditing={this._handleTextChange}/>
+                 // <TextInput
+                 //  style={[styles.zipCode, styles.mainText]} 
+                 //  returnKeyType='go' 
+                 //  onSubmitEditing={this._handleTextChange}/>
+                 <LocationButton onGetCoords={this._getForecastForCoords}/>
                </View>
              </View>
          {content}
