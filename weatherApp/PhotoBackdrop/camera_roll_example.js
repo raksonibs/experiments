@@ -1,4 +1,4 @@
-var React = require('react-native'); var { Image, CameraRoll } = React; var styles = require('./style.js');
+var React = require('react-native'); var { Image, CameraRoll } = React; var styles = require('./styles.js');
 var PhotoBackdrop = React.createClass({ getInitialState() {
 return { photoSource: null
 } },

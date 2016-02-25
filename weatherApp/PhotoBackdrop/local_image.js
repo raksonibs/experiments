@@ -1,5 +1,5 @@
 var React = require('react-native'); var { Image } = React;
-var styles = require('./style.js');
+var styles = require('./styles.js');
 var PhotoBackdrop = React.createClass({ render() {
 return (
   <Image

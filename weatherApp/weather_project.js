@@ -96,7 +96,7 @@ var WeatherProject = React.createClass({
                  </View>
                </View>
             <View style={styles.row}>
-              <LocationButton onGetCoords={this._getForecastForCoords}/>
+              
             </View>
            {content}
           </View>
