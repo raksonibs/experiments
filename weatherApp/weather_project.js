@@ -73,13 +73,15 @@ var WeatherProject = React.createClass({
 
     render: function() {
        var content = null;
-
-        if (this.state.forecast !== null) {
-          content = <Forecast
-                      main={this.state.forecast.main}
-                      description={this.state.forecast.description}
-                      temp={this.state.forecast.temp} />
-        }
+    if (this.state.forecast !== null) {
+      content = (
+        <View style={styles.row}>
+          <Forecast
+            main={this.state.forecast.main} 
+            description={this.state.forecast.description} 
+            temp={this.state.forecast.temp}/>
+        </View>); 
+      }
         return (
           <PhotoBackdrop>
              <View style={styles.overlay}>
@@ -96,7 +98,8 @@ var WeatherProject = React.createClass({
                  </View>
                </View>
             <View style={styles.row}>
-              
+              <LocationButton 
+                onGetCoords={this._getForcastForCoords}/>
             </View>
            {content}
           </View>
