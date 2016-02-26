@@ -6,6 +6,10 @@ var React = require('react-native'); var {
 
 var Video = require('react-native-video').default;
 
+
+// var HelloWorld = require('react-native').NativeModules.HelloWorld;
+// HelloWorld.greeting("Test")
+
 class Depends extends React.Component {
   render() {
     return (
