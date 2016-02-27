@@ -18,7 +18,7 @@ import DeckMetaStore from './../stores/DeckMetaStore';
 
 var Zebreto = React.createClass({
   displayName: 'Zebreto',
-   mixins: [Reflux.connect(DeckMetaStore, 'deckMetas')],
+  mixins: [Reflux.connect(DeckMetaStore, 'deckMetas')],
 
    componentWillMOunt() {
     CardsStore.emit()
@@ -41,5 +41,47 @@ var Zebreto = React.createClass({
         deck: deck
       }
     })
-   }
+   },
+
+  goHome() {
+    this.refs.navigator.popToTop()
+  },
+
+  _renderScene(route) {
+    switch (route.name) {
+      case 'decks':
+        return <Decks review={this.review} createdDeck={this.createdDeck} />
+      case 'createCards':
+        return <NewCard
+                  review={this.review}
+                  quit={this.goHome}
+                  nextCard={this.createdDeck}
+                  {...route.data} />
+      case 'review':
+        return <Review quit={this.goHome} {...route.data} />
+      default:
+        console.error("Encountered wrong route: " + route.name)
+
+    }
+
+    return <Decks />
+  },
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Heading />
+        <Navigator
+          ref='navigator'
+          renderScene={this._renderScene}
+      </View>
+    )
+  }
+})
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 30
+  }
 })
