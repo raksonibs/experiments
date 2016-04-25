@@ -1,0 +1,1 @@
+- Testutils allows shallow rendering, meaning rendering a component one leevel deep, negelecting childs

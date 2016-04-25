@@ -1,0 +1,21 @@
+{
+  "name": "example-mocha-jsdom-test-setup",
+  "description": "React Test Setup with Mocha/jsdom",
+  "scripts": {
+    "test": "mocha --require ./setup.js --compilers js:babel-core/register --recursive"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.6.5",
+    "babel-loader": "^6.2.4",
+    "enzyme": "^2.0.0",
+    "expect": "^1.14.0",
+    "jsdom": "^8.1.0",
+    "mocha": "^2.4.5",
+    "react-addons-test-utils": "^0.14.7"
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  }
+}
