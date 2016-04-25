@@ -5,3 +5,9 @@ const Bar = React.createClass({
         )
     }
 });
+
+export {
+    Bar
+};
+
+export default Bar;
