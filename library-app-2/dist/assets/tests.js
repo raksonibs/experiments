@@ -7,6 +7,15 @@ define('library-app/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
+define('library-app/tests/controllers/contact.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - controllers/contact.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/contact.js should pass jshint.\ncontrollers/contact.js: line 11, col 66, This character may get silently deleted by one or more browsers.\ncontrollers/contact.js: line 12, col 64, This character may get silently deleted by one or more browsers.\n\n2 errors');
+  });
+});
 define('library-app/tests/controllers/index.jshint', ['exports'], function (exports) {
   'use strict';
 

@@ -32,9 +32,9 @@ define('library-app/components/app-version', ['exports', 'ember-cli-app-version/
     name: name
   });
 });
-define('library-app/controllers/index', ['exports', 'ember'], function (exports, _ember) {
+define('library-app/controllers/contact', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
-
+    textMessage: '',
     emailAddress: '',
     isValid: _ember['default'].computed.match('emailAddress', /^.+@.+\..+$/),
     isDisabled: _ember['default'].computed.not('isValid'),
@@ -50,6 +50,38 @@ define('library-app/controllers/index', ['exports', 'ember'], function (exports,
         alert('Saving of the following email address is in progress: ' + this.get('emailAddress'));
         this.set('responseMessage', 'Thank you! We\'ve just saved your email address: ' + this.get('emailAddress'));
         this.set('emailAddress', '');
+      },
+      sendMessage: function sendMessage() {
+        this.set('responseMessage', 'Yo' + this.get('emailAddress'));
+        this.set('emailAddress', '');
+        this.set('textMessage', '');
+      }
+    }
+  });
+});
+define('library-app/controllers/index', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Controller.extend({
+    textMessage: '',
+    emailAddress: '',
+    isValid: _ember['default'].computed.match('emailAddress', /^.+@.+\..+$/),
+    isDisabled: _ember['default'].computed.not('isValid'),
+    actualEmailAddress: _ember['default'].computed('emailAddress', function () {
+      console.log('actualEmailAddress function is called: ', this.get('emailAddress'));
+    }),
+    emailAddressChanged: _ember['default'].observer('emailAddress', function () {
+
+      console.log('observer is called', this.get('emailAddress'));
+    }),
+    actions: {
+      saveInvitation: function saveInvitation() {
+        alert('Saving of the following email address is in progress: ' + this.get('emailAddress'));
+        this.set('responseMessage', 'Thank you! We\'ve just saved your email address: ' + this.get('emailAddress'));
+        this.set('emailAddress', '');
+      },
+      sendMessage: function sendMessage() {
+        this.set('responseMessage', 'Yo' + this.get('emailAddress'));
+        this.set('emailAddress', '');
+        this.set('textMessage', '');
       }
     }
   });
@@ -346,9 +378,57 @@ define("library-app/templates/application", ["exports"], function (exports) {
 });
 define("library-app/templates/contact", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.5.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 14,
+              "column": 6
+            },
+            "end": {
+              "line": 16,
+              "column": 6
+            }
+          },
+          "moduleName": "library-app/templates/contact.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("        ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "class", "alert alert-success");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+          return morphs;
+        },
+        statements: [["content", "responseMessage", ["loc", [null, [15, 41], [15, 60]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
-        "fragmentReason": false,
+        "fragmentReason": {
+          "name": "missing-wrapper",
+          "problems": ["multiple-nodes"]
+        },
         "revision": "Ember@2.5.1",
         "loc": {
           "source": null,
@@ -357,8 +437,8 @@ define("library-app/templates/contact", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 2,
-            "column": 0
+            "line": 18,
+            "column": 8
           }
         },
         "moduleName": "library-app/templates/contact.hbs"
@@ -373,16 +453,69 @@ define("library-app/templates/contact", ["exports"], function (exports) {
         var el2 = dom.createTextNode("Contact");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "form-horizontal form-group form-group-lg row");
+        var el2 = dom.createTextNode("\n      ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2");
+        var el3 = dom.createTextNode("        \n        ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n      ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2");
+        var el3 = dom.createTextNode("\n        ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n      ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3");
+        var el3 = dom.createTextNode("\n          ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "class", "btn btn-primary btn-lg btn-block");
+        var el4 = dom.createTextNode("Send Message");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n      ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         return el0;
       },
-      buildRenderNodes: function buildRenderNodes() {
-        return [];
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [2]);
+        var element1 = dom.childAt(element0, [5, 1]);
+        var morphs = new Array(5);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]), 1, 1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 1, 1);
+        morphs[2] = dom.createAttrMorph(element1, 'disabled');
+        morphs[3] = dom.createElementMorph(element1);
+        morphs[4] = dom.createMorphAt(element0, 7, 7);
+        return morphs;
       },
-      statements: [],
+      statements: [["inline", "input", [], ["type", "email", "value", ["subexpr", "@mut", [["get", "emailAddress", ["loc", [null, [5, 35], [5, 47]]]]], [], []], "class", "form-control", "placeholder", "Please type your e-mail address.", "autofocus", "autofocus"], ["loc", [null, [5, 8], [5, 139]]]], ["inline", "textarea", [], ["value", ["subexpr", "@mut", [["get", "textMessage", ["loc", [null, [8, 25], [8, 36]]]]], [], []], "class", "form-control", "placeholder", "Please type your message.", "autofocus", "autofocus"], ["loc", [null, [8, 8], [8, 121]]]], ["attribute", "disabled", ["get", "isDisabled", ["loc", [null, [11, 70], [11, 80]]]]], ["element", "action", ["sendMessage"], [], ["loc", [null, [11, 83], [11, 107]]]], ["block", "if", [["get", "responseMessage", ["loc", [null, [14, 12], [14, 27]]]]], [], 0, null, ["loc", [null, [14, 6], [16, 13]]]]],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   })());
 });
@@ -858,7 +991,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("library-app/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"library-app","version":"0.0.0+86bd05ef"});
+  require("library-app/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"library-app","version":"0.0.0+a18cbee8"});
 }
 
 /* jshint ignore:end */
