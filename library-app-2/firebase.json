@@ -1,0 +1,8 @@
+{
+  "firebase": "emberfire1",
+  "public": "dist",
+  "rewrites": [{
+    "source": "**",
+    "destination": "/index.html"
+  }]
+}

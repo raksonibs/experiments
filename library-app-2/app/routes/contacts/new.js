@@ -21,7 +21,7 @@ export default Ember.Route.extend({
   validations: {
     email: {
       presence: true,
-      emai;: true
+      email: true
     },
     message: {
       presence: true,
