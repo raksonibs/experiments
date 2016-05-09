@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
   longEnough: Ember.computed('textMessage', function() {
     return this.get('textMessage').length >= 5;
   }),
-  isNotDisabled: Ember.computed.and('isValid', 'LongEnough'),
+  isNotDisabled: !(Ember.computed.and('isValid', 'LongEnough')),
   actualEmailAddress: Ember.computed('emailAddress', function() {
     console.log('actualEmailAddress function is called: ', this.get('emailAddress'));
   }),
@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
         email: email
       })
 
-      newContact.save().then((response) => {        
+      newContact.save().then(() => {        
         alert(`Saving of the following email address is in progress: ${this.get('emailAddress')}`);
         this.set('responseMessage', `Thank you! We've just saved your email address: ${this.get('emailAddress')}`);
         this.set('emailAddress', '');
