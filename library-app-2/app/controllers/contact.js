@@ -18,15 +18,20 @@ export default Ember.Controller.extend({
     console.log('observer is called', this.get('longEnough')); 
   }),
   actions: {
-    saveInvitation() {
-      alert(`Saving of the following email address is in progress: ${this.get('emailAddress')}`);
-      this.set('responseMessage', `Thank you! We've just saved your email address: ${this.get('emailAddress')}`);
-      this.set('emailAddress', '');
-    }, 
     sendMessage: function() {
-      this.set('responseMessage', 'Yo'+ this.get('emailAddress'));
-      this.set('emailAddress', '');
-      this.set('textMessage', '');
+      const email = this.get('emailAddress');
+      const message = this.get('textMessage');
+      const newContact = this.store.createRecord('contact', {
+        message: message,
+        email: email
+      })
+
+      newContact.save().then((response) => {        
+        alert(`Saving of the following email address is in progress: ${this.get('emailAddress')}`);
+        this.set('responseMessage', `Thank you! We've just saved your email address: ${this.get('emailAddress')}`);
+        this.set('emailAddress', '');
+        this.set('textMessage', '');
+      })
     }
   }
 });
