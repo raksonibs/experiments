@@ -1,0 +1,14 @@
+<h2>{{title}}</h2>
+
+<div class="row">
+    <div class="col-md-6">
+      {{store-item-form item=model buttonLabel=buttonLabel action=buttonAction}}
+    </div>
+
+    <div class="col-md-4">
+      {{#store-item item=model}}
+        <br/>
+      {{/store-item}}
+    </div>
+
+</div>
