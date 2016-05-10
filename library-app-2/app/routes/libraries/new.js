@@ -11,6 +11,7 @@ export default Ember.Route.extend({
 
     controller.set('title', 'Create a new library')
     controller.set('buttonLabel', 'Create');
+    controller.set('buttonAction', 'saveLibrary');
     // sets controller params in a route, for setting non default location use renderTemplate
   },
 
