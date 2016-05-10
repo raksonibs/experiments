@@ -12,6 +12,8 @@
   {{#each model as |store|}}
     <div class="col-md-2">
       {{store.name}}
+      {{#link-to 'stores.edit' store.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
+        <button class="btn btn-danger btn-xs" {{action 'deleteStore' store}}>Delete</button>
     </div>
   {{/each}}
 </div>

@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.createRecord('contact')
+    return this.store.createRecord('store')
   },
 
   setupController: function(controller, model) {
@@ -20,7 +20,7 @@ export default Ember.Route.extend({
 
   actions: {
     saveStore(newStore) {
-      newStore.save().then(() => this.transitionTo('contacts'))
+      newStore.save().then(() => this.transitionTo('stores'))
     },
 
     willTransition() {
