@@ -22,6 +22,10 @@ Router.map(function() {
     this.route('edit', { path: '/:library_id/edit' });
   });
 
+  this.route('stores', function() {
+    this.route('new');
+    this.route('edit', { path: '/:store_id/edit' });
+  });
 });
 
 export default Router;
