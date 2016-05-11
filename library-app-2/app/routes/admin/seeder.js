@@ -1,41 +1,110 @@
-import Ember from 'ember';
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
+import { hasMany } from 'ember-data/relationships';
+import Faker from 'faker';
 
-export default Ember.Route.extend({
-  model() {
-    // allows you to wrap multiple promises and return a strucutred hash
-    return Ember.RSVP.hash({
-      libraries: this.store.findAll('library'),
-      books: this.store.findAll('book'),
-      authors: this.store.findAll('author')
-    })
-  }, 
+export default Model.extend({
 
-  setupController(controller, model) {
-    controller.set('libraries', model.libraries);
-    controller.set('books', model.books);
-    controller.set('authors', model.authors);
+  name: attr('string'),
+
+  books: hasMany('book', {inverse: 'author', async: true}),
+
+  randomize() {
+    this.set('name', Faker.name.findName());
+    return this;
   }
 
-  // ember route hook
+});
+We will implement our actions in our controller.
 
-  // init() {
-  // },
+// app/controllers/admin/seeder.js
+import Ember from 'ember';
+import Faker from 'faker';
 
-  // beforeModel(transition) {
-  // },
+export default Ember.Controller.extend({
 
-  // model(params, transition) {
-  // },
+  libraries: [],
+  books: [],
+  authors: [],
 
-  // afterModel(model, transition) {
-  // },
+  actions: {
 
-  // activate() {
-  // },
+    generateLibraries() {
+      const counter = parseInt(this.get('librariesCounter'));
 
-  // setupController(controller, model) {
-  // },
+      for (let i = 0; i < counter; i++) {
+        this.store.createRecord('library').randomize().save().then(() => {
+          if (i === counter-1) {
+            this.set('librariesCounter', 0);
+            this.set('libDone', true);
+          }
+        });
+      }
+    },
 
-  // renderTemplate(controller, model) {
-  // }
+    deleteLibraries() {
+      this._destroyAll(this.get('libraries'));
+
+      this.set('libDelDone', true);
+    },
+
+    generateBooksAndAuthors() {
+      const counter = parseInt(this.get('authorCounter'));
+
+      for (let i = 0; i < counter; i++) {
+        let newAuthor = this.store.createRecord('author');
+        newAuthor.randomize()
+          .save().then(() => {
+             if (i === counter-1) {
+               this.set('authorCounter', 0);
+               this.set('authDone', true);
+             }
+          }
+        );
+
+        this._generateSomeBooks(newAuthor);
+      }
+    },
+
+    deleteBooksAndAuthors() {
+      this._destroyAll(this.get('books'));
+      this._destroyAll(this.get('authors'));
+
+      this.set('authDelDone', true);
+    }
+  },
+
+  // Private methods
+
+  _generateSomeBooks(author) {
+    const bookCounter = Faker.random.number(10);
+
+    for (let j = 0; j < bookCounter; j++) {
+      const library = this._selectRandomLibrary();
+      this.store.createRecord('book')
+        .randomize(author, library)
+        .save();
+      author.save();
+      library.save();
+    }
+  },
+
+  _selectRandomLibrary() {
+    const libraries = this.get('libraries');
+    const librariesCounter = libraries.get('length');
+
+    // Create a new array from IDs
+    const libraryIds = libraries.map((lib) => {return lib.get('id');});
+    const randomNumber = Faker.random.number(librariesCounter-1);
+
+    const randomLibrary = libraries.findBy('id', libraryIds[randomNumber]);
+    return randomLibrary;
+  },
+
+  _destroyAll(records) {
+    records.forEach((item) => {
+      item.destroyRecord();
+    });
+  }
+
 });
