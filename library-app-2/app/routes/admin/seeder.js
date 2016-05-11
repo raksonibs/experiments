@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
+    // allows you to wrap multiple promises and return a strucutred hash
     return Ember.RSVP.hash({
       libraries: this.store.findAll('library'),
       books: this.store.findAll('book'),
