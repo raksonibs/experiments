@@ -3,6 +3,6 @@ import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
-  user: belongsTo('user', {inverse: 'user', async: true})
+  user: belongsTo('user', {inverse: 'user', async: true}),
   name: attr('string')
 });
