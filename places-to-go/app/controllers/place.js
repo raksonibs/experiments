@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   isValid: Ember.computed.not.empty,
 
   actions: {
-    savePlace(newPlace) {
+    savePlace(place) {
       const name = this.get('placeName');
 
       const newPlace = this.store.createRecord('place', {
