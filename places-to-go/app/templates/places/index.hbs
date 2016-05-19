@@ -15,7 +15,7 @@
         Name
         <br><small class="small not-bold">(Click on name for editing)</small>
       </th>
-      <th class="vtop">Places</th>
+      <th class="vtop">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -32,11 +32,14 @@
          </td>
        {{else}}
         <td>
-          {{place.name}}
-          <button class="edit" {{action 'editPlace' place}}>Edit This Place!</button>
-
+          {{place.name}}          
         </td>
        {{/if}}
+
+       <td>
+         <button class="edit" {{action 'editPlace' place}}>Edit This Place!</button>
+         <button class="destroy" {{action 'destroyPlace' place}}>Delete Place!</button>
+       </td>
 
     </tr>
     {{/each}}

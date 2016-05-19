@@ -34,5 +34,10 @@ export default Ember.Controller.extend({
     editPlace(place) {
       place.set('isEditing', true)
     },
+
+    destroyPlace(place) {
+      place.destroyRecord()
+
+    },
   }
 });
