@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
   placeName: '',
   flashMessage: '',
   isValid: Ember.computed.not.empty,
+  places: this.store.findAll('place'),
 
   actions: {
     savePlace(place) {
