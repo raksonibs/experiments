@@ -21,7 +21,23 @@
   <tbody>
     {{#each model as |place|}}
     <tr>
-      <td>{{place.name}}</td>
+       {{#if place.isEditing}}
+         <td>
+          <form {{action "savePlace" place on='submit'}} class="form-inline">
+            {{input value=place.name}}
+            <button type="submit">
+              Save
+            </button>
+          </form>
+         </td>
+       {{else}}
+        <td>
+          {{place.name}}
+          <button class="edit" {{action 'editPlace' place}}>Edit This Place!</button>
+
+        </td>
+       {{/if}}
+
     </tr>
     {{/each}}
   </tbody>
