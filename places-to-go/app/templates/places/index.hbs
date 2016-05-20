@@ -17,6 +17,10 @@
       </th>
       <th class="vtop">Actions</th>
     </tr>
+    <tr>
+      <th>{{input key-up='searchEvent' enter='searchEvent' value=searchName}}</th>
+      <th><button {{action 'searchEvent'}}>Search</button></th>
+    </tr>
   </thead>
   <tbody>
     {{#each model as |place|}}

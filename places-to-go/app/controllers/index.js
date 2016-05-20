@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   placeName: '',
+  searchName: '',
   flashMessage: '',
   isValid: Ember.computed.not.empty,
   model: Ember.computed('model', function() {
@@ -29,6 +30,19 @@ export default Ember.Controller.extend({
           this.set('placeName', '');
         })
       }
+    },
+
+    searchEvent() {
+      const searchPlace = this.get('searchName');
+      let emberCont = this
+
+      this.store.query('place', { name: searchPlace }).then(function(places) {
+        console.log(searchPlace)
+        console.log(places)
+        emberCont.set('model', places)
+      })
+
+      
     },
 
     editPlace(place) {
