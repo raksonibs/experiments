@@ -38,5 +38,6 @@ defmodule Backend.Endpoint do
     key: "_backend_key",
     signing_salt: "7qfE34AV"
 
+  plug CORSPlug
   plug Backend.Router
 end

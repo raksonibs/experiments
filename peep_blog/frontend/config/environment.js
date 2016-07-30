@@ -5,6 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'frontend',
     environment: environment,
     baseURL: '/',
+    apiNamespace: 'api',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -42,6 +43,9 @@ module.exports = function(environment) {
   if (environment === 'production') {
 
   }
+
+  ENV.serverURL = 'http://localhost:4000';
+  ENV.apiBaseURL = ENV.serverURL + '/' + ENV.apiNamespace;
 
   return ENV;
 };
